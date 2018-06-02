@@ -1,0 +1,6 @@
+usr/local/bin/nitrous-qt usr/bin
+share/pixmaps/bitcoin32.xpm usr/share/pixmaps
+share/pixmaps/bitcoin16.xpm usr/share/pixmaps
+share/pixmaps/bitcoin128.png usr/share/pixmaps
+debian/nitrous-qt.desktop usr/share/applications
+debian/nitrous-qt.protocol usr/share/kde4/services/

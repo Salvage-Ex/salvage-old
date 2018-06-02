@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=N2O
+Comment=N2O P2P Cryptocurrency
+Exec=nitrous-qt %u
+Terminal=false
+Type=Application
+Icon=nitrous128
+MimeType=x-scheme-handler/nitrous;
+Categories=Office;Finance;
+Name[en_US]=nitrous-qt.desktop

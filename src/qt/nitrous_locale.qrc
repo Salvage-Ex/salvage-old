@@ -1,0 +1,20 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/nitrous_bg.qm</file>
+        <file alias="de">locale/nitrous_de.qm</file>
+        <file alias="en">locale/nitrous_en.qm</file>
+        <file alias="es">locale/nitrous_es.qm</file>
+        <file alias="fi">locale/nitrous_fi.qm</file>
+        <file alias="fr">locale/nitrous_fr.qm</file>
+        <file alias="it">locale/nitrous_it.qm</file>
+        <file alias="ja">locale/nitrous_ja.qm</file>
+        <file alias="pl">locale/nitrous_pl.qm</file>
+        <file alias="pt">locale/nitrous_pt.qm</file>
+        <file alias="ru">locale/nitrous_ru.qm</file>
+        <file alias="sk">locale/nitrous_sk.qm</file>
+        <file alias="sv">locale/nitrous_sv.qm</file>
+        <file alias="vi">locale/nitrous_vi.qm</file>
+        <file alias="zh_CN">locale/nitrous_zh_CN.qm</file>
+        <file alias="zh_TW">locale/nitrous_zh_TW.qm</file>
+    </qresource>
+</RCC>

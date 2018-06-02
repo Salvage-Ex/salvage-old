@@ -1,0 +1,26 @@
+[Unit]
+Description=N2O's distributed currency daemon
+After=network.target
+
+[Service]
+User=nitrous
+Group=nitrous
+
+Type=forking
+PIDFile=/var/lib/nitrousd/nitrousd.pid
+
+ExecStart=/usr/bin/nitrousd -daemon -pid=/var/lib/nitrousd/nitrousd.pid \
+          -conf=/etc/nitrous/nitrous.conf -datadir=/var/lib/nitrousd
+
+ExecStop=-/usr/bin/nitrous-cli -conf=/etc/nitrous/nitrous.conf \
+         -datadir=/var/lib/nitrousd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
