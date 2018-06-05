@@ -278,11 +278,11 @@ public:
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1528158781;
         genesis.nBits = 0x207fffff;
-        genesis.nNonce = 1528158781;
+        genesis.nNonce = 987655;
 		
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 43323;
-        assert(hashGenesisBlock == uint256("0x64b5d2a69617df848fb3aa0f089bc6ecf85cdd2d3e2b378982e46b8df76b9bb7"));
+        assert(hashGenesisBlock == uint256("0x45bc75e6f085ce607ac39fe76d261b2e3d7ef19fe701e5061c5e7850c8b00533"));
 
         //vSeeds.push_back(CDNSSeedData("nitrous1.brainchamber.com", "nitrous1.brainchamber.com"));
         //vSeeds.push_back(CDNSSeedData("nitrous2.brainchamber.com", "nitrous2.brainchamber.com"));
