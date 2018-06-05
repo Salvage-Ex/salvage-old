@@ -115,7 +115,7 @@ public:
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
         nMaxMoneyOut = 250000000 * COIN;
 
-        const char* pszTimestamp = "US News and World Report 30 May 2018 / Trump Tests Midterm Message On Immigration, MS-13 Animals During Tenn Rally";
+        const char* pszTimestamp = "MSNBC 4/June/2018 Trump tweets that he has absolute right to pardon himself";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
