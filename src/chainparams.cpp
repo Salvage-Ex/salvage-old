@@ -276,7 +276,7 @@ public:
         nTargetTimespan = 24 * 60 * 60;
         nTargetSpacing = 1 * 60;
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1528158781;
+        genesis.nTime = 1528140682;
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 987655;
 		
