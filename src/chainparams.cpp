@@ -134,7 +134,7 @@ public:
 		//printf("%s\n", hashGenesisBlock.ToString().c_str());
 		//printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         assert(hashGenesisBlock == uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"));
-        assert(genesis.hashMerkleRoot == uint256("0xa2aae15489377e46591671a9f4ac8bbed76469e01823643b79f28091d74fee43"));
+        assert(genesis.hashMerkleRoot == uint256("19e7a7aaeaee2729fde3363d16b1cad0af0cd6b15f40b5e5ccd32a686deb35d1"));
         
 
         vSeeds.push_back(CDNSSeedData("nitrous1.brainchamber.com", "nitrous1.brainchamber.com"));
