@@ -282,7 +282,7 @@ public:
 		
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 43323;
-        assert(hashGenesisBlock == uint256(""0x64b5d2a69617df848fb3aa0f089bc6ecf85cdd2d3e2b378982e46b8df76b9bb7""));
+        assert(hashGenesisBlock == uint256("0x64b5d2a69617df848fb3aa0f089bc6ecf85cdd2d3e2b378982e46b8df76b9bb7"));
 
         //vSeeds.push_back(CDNSSeedData("nitrous1.brainchamber.com", "nitrous1.brainchamber.com"));
         //vSeeds.push_back(CDNSSeedData("nitrous2.brainchamber.com", "nitrous2.brainchamber.com"));
