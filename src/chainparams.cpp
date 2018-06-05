@@ -55,7 +55,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
-    boost::assign::map_list_of(0, uint256("0x0000060f6120027057c1aa4f61419bc8a3089af8b31efe8676e2fe30cb7dbfb5"));
+    boost::assign::map_list_of(0, uint256("""0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe""));
 ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
@@ -106,7 +106,7 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60;
+        nTargetTimespan = 5 * 60; //5 minutes
         nTargetSpacing = 1 * 60;
         nLastPOWBlock = 1000;
         nMaturity = 40;
@@ -126,14 +126,14 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1527713082;
+        genesis.nTime = 1528140682;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 1235313098;
+        genesis.nNonce = 2178701;
 		
         hashGenesisBlock = genesis.GetHash();
 		//printf("%s\n", hashGenesisBlock.ToString().c_str());
 		//printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
-        assert(hashGenesisBlock == uint256("0x0000060f6120027057c1aa4f61419bc8a3089af8b31efe8676e2fe30cb7dbfb5"));
+        assert(hashGenesisBlock == uint256(""0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe""));
         assert(genesis.hashMerkleRoot == uint256("0xa2aae15489377e46591671a9f4ac8bbed76469e01823643b79f28091d74fee43"));
         
 
@@ -206,12 +206,12 @@ public:
         nMaxMoneyOut = 250000000 * COIN;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1527713082;
-        genesis.nNonce = 1235313098;
+        genesis.nTime = 1528140682;
+        genesis.nNonce = 2178701;
 
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x0000060f6120027057c1aa4f61419bc8a3089af8b31efe8676e2fe30cb7dbfb5"));
+        assert(hashGenesisBlock == uint256(""0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe""));
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
@@ -276,13 +276,13 @@ public:
         nTargetTimespan = 24 * 60 * 60;
         nTargetSpacing = 1 * 60;
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1527713082;
+        genesis.nTime = 1528158781;
         genesis.nBits = 0x207fffff;
-        genesis.nNonce = 1234355679;
+        genesis.nNonce = 1528158781;
 		
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 43323;
-        assert(hashGenesisBlock == uint256("0x216422190088f60c2ab9153fda1eda38d595284b16837fc6c44cac48bfa4075c"));
+        assert(hashGenesisBlock == uint256(""0x64b5d2a69617df848fb3aa0f089bc6ecf85cdd2d3e2b378982e46b8df76b9bb7""));
 
         //vSeeds.push_back(CDNSSeedData("nitrous1.brainchamber.com", "nitrous1.brainchamber.com"));
         //vSeeds.push_back(CDNSSeedData("nitrous2.brainchamber.com", "nitrous2.brainchamber.com"));
