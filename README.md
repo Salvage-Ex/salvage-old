@@ -1,6 +1,9 @@
-# Nitrous
+# Nitrous Instllation
 
-To compile the Linux version from source, do the following on Ubuntu 16.04.
+For the easiest path do installation you can follow this link to the community renowned Zolur's page.  He has written a one click script to install and configure the masternode.
+https://github.com/zoldur/Nitrous
+
+If you want to compile the binaries from souce, do the following on Ubuntu 16.04.
 
 # Create SWAP
 
