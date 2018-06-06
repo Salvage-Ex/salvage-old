@@ -1,4 +1,4 @@
-# Nitrous Instllation
+# Nitrous Installation
 
 For the easiest path do installation you can follow this link to the community renowned Zolur's page.  He has written a one click script to install and configure the masternode.
 https://github.com/zoldur/Nitrous
