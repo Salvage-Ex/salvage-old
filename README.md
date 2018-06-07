@@ -36,7 +36,7 @@ sudo apt-get install libzmq3-dev
 sudo apt-get install libminiupnpc-dev
 
 
-# download source
+# Download source
 
 git clone https://github.com/Nitrous-Core/nitrous.git
 
