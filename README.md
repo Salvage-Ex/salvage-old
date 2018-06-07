@@ -35,7 +35,8 @@ sudo apt-get install libdb4.8-dev libdb4.8++-dev
 sudo apt-get install libzmq3-dev
 sudo apt-get install libminiupnpc-dev
 
-#download source
+
+# download source
 
 git clone https://github.com/Nitrous-Core/nitrous.git
 
