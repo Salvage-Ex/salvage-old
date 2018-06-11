@@ -1,7 +1,11 @@
 # Nitrous Installation
 
-For the easiest path do installation you can follow this link to the community renowned Zolur's page.  He has written a one click script to install and configure the masternode.
+For the easiest path to installation you can follow one of these links to the community renowned Zoldur's page.  Or the cuddly genius BitYoda's page.  If you have a preference, pic one, if not, pick either!  They both do the job exceptionally well.
+
 https://github.com/zoldur/Nitrous
+
+https://github.com/Realbityoda/Nitrous
+
 
 If you want to compile the binaries from souce, do the following on Ubuntu 16.04.
 
