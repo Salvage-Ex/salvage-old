@@ -116,7 +116,13 @@ public:
         nLastPOWBlock = 1000;
         nMaturity = 40;
         nMasternodeCountDrift = 20;
-	nMasternodeColleteralLimxDev = 2000; //Params().MasternodeColleteralLimxDev()
+	if( nHeight > 1 && nHeight <= 45000 ) {
+	        nMasternodeColleteralLimxDev = 2000;
+	} else if( nHeight > 45000 && nHeight <= 100000 ) {
+	        nMasternodeColleteralLimxDev = 5000;
+	} else if( nHeight > 10000 && nHeight <= 100000 ) {
+	        nMasternodeColleteralLimxDev = 10000;
+	//nMasternodeColleteralLimxDev = 2000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
         nMaxMoneyOut = 250000000 * COIN;
 
