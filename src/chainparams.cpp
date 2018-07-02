@@ -55,12 +55,17 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
-    boost::assign::map_list_of(0, uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"));
+    boost::assign::map_list_of
+    (0, uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"))
+	(500,   uint256("0x0000000d5fd7d8854fd96e93b34bbdc9d8afccb5eb761e24f70044c9e2b97c7b"))
+	(10000 	unit256("0xdbe8980528ecc4775c72b3f2befd14f12d784470f784165ac10be11ce89f326a"))
+	(20000	unit256("0x484924e022dc954895a9f6663648843bc60d629e568ce2319fb0ea17cee33cf2"))
+	(40911	unit256("0x1a7296f022fda8a574d23f0d3c01da3f159b2b8fc6f85a5e8ea256ffcc3727c2"));
 ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1527713082, // * UNIX timestamp of last checkpoint block
-    0,    // * total number of transactions between genesis and last checkpoint
+    1530554099, // * UNIX timestamp of last checkpoint block
+    86653,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     2000        // * estimated number of transactions per day after checkpoint
 };
@@ -102,8 +107,8 @@ public:
         bnProofOfWorkLimit = ~uint256(0) >> 20;
         nSubsidyHalvingInterval = 999999;
         nMaxReorganizationDepth = 100;
-        nEnforceBlockUpgradeMajority = 750;
-        nRejectBlockOutdatedMajority = 950;
+        nEnforceBlockUpgradeMajority = 510;
+        nRejectBlockOutdatedMajority = 750;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
         nTargetTimespan = 5 * 60; //5 minutes
@@ -111,7 +116,20 @@ public:
         nLastPOWBlock = 1000;
         nMaturity = 40;
         nMasternodeCountDrift = 20;
-	nMasternodeColleteralLimxDev = 2000; //Params().MasternodeColleteralLimxDev()
+	//* variable masternode collateral
+	//int nHeight = chainActive.Height();
+	//if( nHeight > 1 && nHeight <= 45000 ) {
+	//       nMasternodeColleteralLimxDev = 2000;
+	//} else if( nHeight > 45000 && nHeight <= 70000 ) {
+	//        nMasternodeColleteralLimxDev = 5000;
+	//} else if( nHeight > 70000 && nHeight <= 110000 ) {
+	//        nMasternodeColleteralLimxDev = 10000;
+	//} else if( nHeight > 110000 && nHeight <= 160000 ) {
+	//        nMasternodeColleteralLimxDev = 20000;
+	//} else if( nHeight > 160000) {
+	//       nMasternodeColleteralLimxDev = 40000;
+	//}
+	nMasternodeColleteralLimxDev = 5000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
         nMaxMoneyOut = 250000000 * COIN;
 
