@@ -118,10 +118,15 @@ public:
         nMasternodeCountDrift = 20;
 	if( nHeight > 1 && nHeight <= 45000 ) {
 	        nMasternodeColleteralLimxDev = 2000;
-	} else if( nHeight > 45000 && nHeight <= 100000 ) {
+	} else if( nHeight > 45000 && nHeight <= 70000 ) {
 	        nMasternodeColleteralLimxDev = 5000;
-	} else if( nHeight > 10000 && nHeight <= 100000 ) {
+	} else if( nHeight > 70000 && nHeight <= 110000 ) {
 	        nMasternodeColleteralLimxDev = 10000;
+	} else if( nHeight > 110000 && nHeight <= 160000 ) {
+	        nMasternodeColleteralLimxDev = 20000;
+	} else if( nHeight > 110000 && nHeight <= 160000 ) {
+	        nMasternodeColleteralLimxDev = 40000;
+	}
 	//nMasternodeColleteralLimxDev = 2000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
         nMaxMoneyOut = 250000000 * COIN;
