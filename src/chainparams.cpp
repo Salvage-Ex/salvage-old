@@ -107,8 +107,8 @@ public:
         bnProofOfWorkLimit = ~uint256(0) >> 20;
         nSubsidyHalvingInterval = 999999;
         nMaxReorganizationDepth = 100;
-        nEnforceBlockUpgradeMajority = 750;
-        nRejectBlockOutdatedMajority = 950;
+        nEnforceBlockUpgradeMajority = 510;
+        nRejectBlockOutdatedMajority = 750;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
         nTargetTimespan = 5 * 60; //5 minutes
@@ -116,20 +116,20 @@ public:
         nLastPOWBlock = 1000;
         nMaturity = 40;
         nMasternodeCountDrift = 20;
-	//variable masternode collateral
-	int nHeight = chainActive.Height();
-	if( nHeight > 1 && nHeight <= 45000 ) {
-	        nMasternodeColleteralLimxDev = 2000;
-	} else if( nHeight > 45000 && nHeight <= 70000 ) {
-	        nMasternodeColleteralLimxDev = 5000;
-	} else if( nHeight > 70000 && nHeight <= 110000 ) {
-	        nMasternodeColleteralLimxDev = 10000;
-	} else if( nHeight > 110000 && nHeight <= 160000 ) {
-	        nMasternodeColleteralLimxDev = 20000;
-	} else if( nHeight > 160000) {
-	        nMasternodeColleteralLimxDev = 40000;
-	}
-	//nMasternodeColleteralLimxDev = 2000; //Params().MasternodeColleteralLimxDev()
+	//* variable masternode collateral
+	//int nHeight = chainActive.Height();
+	//if( nHeight > 1 && nHeight <= 45000 ) {
+	//       nMasternodeColleteralLimxDev = 2000;
+	//} else if( nHeight > 45000 && nHeight <= 70000 ) {
+	//        nMasternodeColleteralLimxDev = 5000;
+	//} else if( nHeight > 70000 && nHeight <= 110000 ) {
+	//        nMasternodeColleteralLimxDev = 10000;
+	//} else if( nHeight > 110000 && nHeight <= 160000 ) {
+	//        nMasternodeColleteralLimxDev = 20000;
+	//} else if( nHeight > 160000) {
+	//       nMasternodeColleteralLimxDev = 40000;
+	//}
+	nMasternodeColleteralLimxDev = 5000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
         nMaxMoneyOut = 250000000 * COIN;
 
