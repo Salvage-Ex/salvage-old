@@ -116,6 +116,8 @@ public:
         nLastPOWBlock = 1000;
         nMaturity = 40;
         nMasternodeCountDrift = 20;
+	//variable masternode collateral
+	int nHeight = chainActive.Height();
 	if( nHeight > 1 && nHeight <= 45000 ) {
 	        nMasternodeColleteralLimxDev = 2000;
 	} else if( nHeight > 45000 && nHeight <= 70000 ) {
@@ -124,7 +126,7 @@ public:
 	        nMasternodeColleteralLimxDev = 10000;
 	} else if( nHeight > 110000 && nHeight <= 160000 ) {
 	        nMasternodeColleteralLimxDev = 20000;
-	} else if( nHeight > 110000 && nHeight <= 160000 ) {
+	} else if( nHeight > 160000) {
 	        nMasternodeColleteralLimxDev = 40000;
 	}
 	//nMasternodeColleteralLimxDev = 2000; //Params().MasternodeColleteralLimxDev()
