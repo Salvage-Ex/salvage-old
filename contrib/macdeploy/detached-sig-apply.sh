@@ -5,7 +5,7 @@ UNSIGNED=$1
 SIGNATURE=$2
 ARCH=x86_64
 ROOTDIR=dist
-BUNDLE=${ROOTDIR}/N2O-Qt.app
+BUNDLE=${ROOTDIR}/Nitrous-Qt.app
 TEMPDIR=signed.temp
 OUTDIR=signed-app
 

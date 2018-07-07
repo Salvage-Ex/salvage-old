@@ -15,7 +15,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"io.nitrous.N2O-Qt";
+        return @"io.nitrous.Nitrous-Qt";
     } else {
         return [self __bundleIdentifier];
     }

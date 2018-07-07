@@ -155,7 +155,7 @@ class FrameworkInfo(object):
 class ApplicationBundleInfo(object):
     def __init__(self, path):
         self.path = path
-        appName = "N2O-Qt"
+        appName = "Nitrous-Qt"
         self.binaryPath = os.path.join(path, "Contents", "MacOS", appName)
         if not os.path.exists(self.binaryPath):
             raise RuntimeError("Could not find bundle binary for " + path)
@@ -334,7 +334,7 @@ def deployFrameworks(frameworks, bundlePath, binaryPath, strip, verbose, deploym
 
         if framework.installName.startswith("@executable_path") or framework.installName.startswith(bundlePath):
             if verbose >= 2:
-                print(framework.frameworkName, "already deployed, skipping.")
+                print(framework.frameworkName, "already deployed, skipping:", framework.installName)
             continue
 
         # install_name_tool the new id into the binary
@@ -604,7 +604,7 @@ else:
 
 # ------------------------------------------------
 
-target = os.path.join("dist", "N2O-Qt.app")
+target = os.path.join("dist", "Nitrous-Qt.app")
 
 if verbose >= 2:
     print("+ Copying source bundle +")
