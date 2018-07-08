@@ -4,7 +4,7 @@ For the easiest path to installation you can follow one of these links to the co
 
 https://github.com/zoldur/Nitrous
 
-https://github.com/Realbityoda/Nitrous
+
 
 
 If you want to compile the binaries from souce, do the following on Ubuntu 16.04.
