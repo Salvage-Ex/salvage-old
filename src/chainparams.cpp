@@ -131,7 +131,7 @@ public:
 	//}
 	nMasternodeColleteralLimxDev = 10000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
-        nMaxMoneyOut = 25000000 * COIN;
+        nMaxMoneyOut = 250000000 * COIN;
 
         const char* pszTimestamp = "MSNBC 4/June/2018 Trump tweets that he has absolute right to pardon himself";
         CMutableTransaction txNew;
