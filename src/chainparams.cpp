@@ -108,10 +108,10 @@ public:
         nSubsidyHalvingInterval = 999999;
         nMaxReorganizationDepth = 100;
         nEnforceBlockUpgradeMajority = 510;
-        nRejectBlockOutdatedMajority = 750;
+        nRejectBlockOutdatedMajority = 650;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 5 * 60; //5 minutes
+        nTargetTimespan = 1 * 60; //1 minute
         nTargetSpacing = 1 * 60;
         nLastPOWBlock = 1000;
         nMaturity = 40;
