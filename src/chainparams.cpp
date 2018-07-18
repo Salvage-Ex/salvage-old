@@ -129,7 +129,7 @@ public:
 	//} else if( nHeight > 160000) {
 	//       nMasternodeColleteralLimxDev = 40000;
 	//}
-	nMasternodeColleteralLimxDev = 10000; //Params().MasternodeColleteralLimxDev()
+        nMasternodeColleteralLimxDev = 5000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
         nMaxMoneyOut = 250000000 * COIN;
 
