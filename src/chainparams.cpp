@@ -111,7 +111,7 @@ public:
         nRejectBlockOutdatedMajority = 650;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 5 * 60; // minute
+        nTargetTimespan = 5 * 60; // 5 minutes
         nTargetSpacing = 1 * 60;
         nLastPOWBlock = 1000;
         nMaturity = 40;
@@ -129,7 +129,7 @@ public:
 	//} else if( nHeight > 160000) {
 	//       nMasternodeColleteralLimxDev = 40000;
 	//}
-        nMasternodeColleteralLimxDev = 5000; //Params().MasternodeColleteralLimxDev()
+        nMasternodeColleteralLimxDev = 10000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
         nMaxMoneyOut = 250000000 * COIN;
 
