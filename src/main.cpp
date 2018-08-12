@@ -1621,40 +1621,38 @@ double ConvertBitsToDouble(unsigned int nBits)
 int64_t GetBlockValue(int nHeight)
 {
  
-	if (nHeight == 1) return 500000 * COIN;
+	if (nHeight == 1) return 3219300 * COIN; //pre-min most will got to swaps
 	
 	int64_t nSubsidy;
 	
-	if( nHeight > 1 && nHeight <= 5000 ) {
-	        nSubsidy = 1 * COIN;
-	} else if( nHeight > 5000 && nHeight <= 10000 ) {
+	if( nHeight > 1 && nHeight <= 131400 ) {
 	        nSubsidy = 5 * COIN;
-	} else if( nHeight > 10000 && nHeight <= 20000 ) {
+	} else if( nHeight > 131400 && nHeight <= 262800 ) {
 	        nSubsidy = 10 * COIN;
-	} else if( nHeight > 20000 && nHeight <= 40000 ) {
-	        nSubsidy = 20 * COIN;
-	} else if( nHeight > 40000 && nHeight <= 70000 ) {
-	        nSubsidy = 40 * COIN;
-	} else if( nHeight > 70000 && nHeight <= 80000 ) {
-	        nSubsidy = 80 * COIN;
-	} else if( nHeight > 80000 && nHeight <= 110000 ) {
-	        nSubsidy = 60 * COIN;
-	} else if( nHeight > 110000 && nHeight <= 140000 ) {
-	        nSubsidy = 50 * COIN;
-	} else if( nHeight > 140000 && nHeight <= 170000 ) {
-	        nSubsidy = 40 * COIN;
-	} else if( nHeight > 170000 && nHeight <= 200000 ) {
-	        nSubsidy = 30 * COIN;
-	} else if( nHeight > 200000 && nHeight <= 300000 ) {
-	        nSubsidy = 25 * COIN;
-	} else if( nHeight > 300000 && nHeight <= 400000 ) {
-	        nSubsidy = 20 * COIN;
-	} else if( nHeight > 400000 && nHeight <= 500000 ) {
+	} else if( nHeight > 262800 && nHeight <= 394200 ) {
 	        nSubsidy = 15 * COIN;
-	} else if( nHeight > 500000 && nHeight <= 750000 ) {
+	} else if( nHeight > 394200 && nHeight <= 525600 ) {
+	        nSubsidy = 20 * COIN;
+	} else if( nHeight > 525600 && nHeight <= 657000 ) {
+	        nSubsidy = 25 * COIN;
+	} else if( nHeight > 657000 && nHeight <= 788400 ) {
+	        nSubsidy = 30 * COIN;
+	} else if( nHeight > 788400 && nHeight <= 919800 ) {
+	        nSubsidy = 35 * COIN;
+	} else if( nHeight > 919800 && nHeight <= 1051200 ) {
+	        nSubsidy = 30 * COIN;
+	} else if( nHeight > 1051200 && nHeight <= 1182600 ) {
+	        nSubsidy = 25 * COIN;
+	} else if( nHeight > 1182600 && nHeight <= 1314000 ) {
+	        nSubsidy = 20 * COIN;
+	} else if( nHeight > 1314000 && nHeight <= 1445400 ) {
+	        nSubsidy = 15 * COIN;
+	} else if( nHeight > 1445400 && nHeight <= 1576800 ) {
 	        nSubsidy = 10 * COIN;
+	} else if( nHeight > 1576800 && nHeight <= 1708200 ) {
+	        nSubsidy = 5 * COIN;
 	} else {
-		nSubsidy = 5 * COIN;
+		nSubsidy = 1 * COIN;
 	}
 	
     return nSubsidy;

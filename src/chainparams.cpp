@@ -111,25 +111,29 @@ public:
         nRejectBlockOutdatedMajority = 650;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 5 * 60; // 5 minutes
-        nTargetSpacing = 1 * 60;
+        nTargetTimespan = 10 * 60; // 10 minutes
+        nTargetSpacing = 2 * 60; // 2 minute block time
         nLastPOWBlock = 1000;
         nMaturity = 40;
         nMasternodeCountDrift = 20;
 	//* variable masternode collateral
-	//int nHeight = chainActive.Height();
-	//if( nHeight > 1 && nHeight <= 45000 ) {
-	//       nMasternodeColleteralLimxDev = 2000;
-	//} else if( nHeight > 45000 && nHeight <= 70000 ) {
-	//        nMasternodeColleteralLimxDev = 5000;
-	//} else if( nHeight > 70000 && nHeight <= 110000 ) {
-	//        nMasternodeColleteralLimxDev = 10000;
-	//} else if( nHeight > 110000 && nHeight <= 160000 ) {
-	//        nMasternodeColleteralLimxDev = 20000;
-	//} else if( nHeight > 160000) {
-	//       nMasternodeColleteralLimxDev = 40000;
-	//}
-        nMasternodeColleteralLimxDev = 10000; //Params().MasternodeColleteralLimxDev()
+	   int nHeight = chainActive.Height();
+       const int nMinCollat = 1250;
+	   if( nHeight > 1 && nHeight <= 131400 ) {
+	         nMasternodeColleteralLimxDev = nMinCollat; //Collateral 1.25k
+        } else if( nHeight > 131400 && nHeight <= 262800 ) {
+	       nMasternodeColleteralLimxDev = nMinCollat * 2; //2.5k
+        } else if( nHeight > 262800 && nHeight <= 394200 ) {
+	       nMasternodeColleteralLimxDev = nMinCollat * 4; //5k
+        } else if( nHeight > 394200 && nHeight <= 525600 ) {
+	       nMasternodeColleteralLimxDev = nMinCollat * 8; //10k
+        } else if( nHeight > 525600 && nHeight <= 657000 ) {
+           nMasternodeColleteralLimxDev = nMinCollat * 16; //20k
+        } else if( nHeight > 657000) {
+	      nMasternodeColleteralLimxDev = nMinCollat * 32; //40k
+        }
+        //Params().MasternodeColleteralLimxDev()
+
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
         nMaxMoneyOut = 250000000 * COIN;
 
@@ -216,8 +220,8 @@ public:
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60;
-        nTargetSpacing = 1 * 60;
+        nTargetTimespan = 10 * 60;
+        nTargetSpacing = 2 * 60; // 2 minute block time
         nLastPOWBlock = 200;
         nMaturity = 15;
         nModifierUpdateBlock = 51197; //approx Mon, 30 Apr 2018 04:00:00 GMT
@@ -292,7 +296,7 @@ public:
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
         nTargetTimespan = 24 * 60 * 60;
-        nTargetSpacing = 1 * 60;
+        nTargetSpacing = 2 * 60; // 2 minute block time
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1528140682;
         genesis.nBits = 0x207fffff;
