@@ -3,11 +3,12 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers 
 // Copyright (c) 2018 The Nitrous developers
+// Copyright (c) 2018 The Salvage developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/nitrous-config.h"
+#include "config/salvage-config.h"
 #endif
 
 #include "util.h"
@@ -106,7 +107,7 @@ std::string to_internal(const std::string&);
 
 using namespace std;
 
-//Nitrous only features
+//Salvage only features
 bool fMasterNode = false;
 string strMasterNodePrivKey = "";
 string strMasterNodeAddr = "";
@@ -114,7 +115,7 @@ bool fLiteMode = false;
 bool fEnableInstantX = true;
 int nInstantXDepth = 5;
 int nDarksendRounds = 2;
-int nAnonymizeN2OAmount = 1000;
+int nAnonymizeSVGAmount = 1000;
 int nLiquidityProvider = 0;
 /** Spork enforcement enabled time */
 int64_t enforceMasternodePaymentsTime = 4085657524;
@@ -232,8 +233,8 @@ bool LogAcceptCategory(const char* category)
             const vector<string>& categories = mapMultiArgs["-debug"];
             ptrCategory.reset(new set<string>(categories.begin(), categories.end()));
             // thread_specific_ptr automatically deletes the set when the thread ends.
-            // "nitrous" is a composite category enabling all Nitrous-related debug output
-            if (ptrCategory->count(string("nitrous"))) {
+            // "salvage" is a composite category enabling all Salvage-related debug output
+            if (ptrCategory->count(string("salvage"))) {
                 ptrCategory->insert(string("Darksend"));
                 ptrCategory->insert(string("Instantx"));
                 ptrCategory->insert(string("masternode"));
@@ -397,7 +398,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "nitrous";
+    const char* pszModule = "salvage";
 #endif
     if (pex)
         return strprintf(
@@ -418,13 +419,13 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-// Windows < Vista: C:\Documents and Settings\Username\Application Data\Nitrous
-// Windows >= Vista: C:\Users\Username\AppData\Roaming\Nitrous
-// Mac: ~/Library/Application Support/Nitrous
-// Unix: ~/.nitrous
+// Windows < Vista: C:\Documents and Settings\Username\Application Data\Salvage
+// Windows >= Vista: C:\Users\Username\AppData\Roaming\Salvage
+// Mac: ~/Library/Application Support/Salvage
+// Unix: ~/.salvage
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Nitrous";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Salvage";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -436,10 +437,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     TryCreateDirectory(pathRet);
-    return pathRet / "Nitrous";
+    return pathRet / "Salvage";
 #else
     // Unix
-    return pathRet / ".nitrous";
+    return pathRet / ".salvage";
 #endif
 #endif
 }
@@ -486,7 +487,7 @@ void ClearDatadirCache()
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "nitrous.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "salvage.conf"));
     if (!pathConfigFile.is_complete())
         pathConfigFile = GetDataDir(false) / pathConfigFile;
 
@@ -505,7 +506,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good()) {
-        // Create empty nitrous.conf if it does not exist
+        // Create empty salvage.conf if it does not exist
         FILE* configFile = fopen(GetConfigFile().string().c_str(), "a");
         if (configFile != NULL)
             fclose(configFile);
@@ -516,7 +517,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
     setOptions.insert("*");
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it) {
-        // Don't overwrite existing settings so command line settings override nitrous.conf
+        // Don't overwrite existing settings so command line settings override salvage.conf
         string strKey = string("-") + it->string_key;
         string strValue = it->value[0];
         InterpretNegativeSetting(strKey, strValue);
@@ -531,7 +532,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 #ifndef WIN32
 boost::filesystem::path GetPidFile()
 {
-    boost::filesystem::path pathPidFile(GetArg("-pid", "nitrousd.pid"));
+    boost::filesystem::path pathPidFile(GetArg("-pid", "salvaged.pid"));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }

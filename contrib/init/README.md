@@ -1,10 +1,10 @@
 Sample configuration files for:
 
-SystemD: nitrousd.service
-Upstart: nitrousd.conf
-OpenRC:  nitrousd.openrc
-         nitrousd.openrcconf
-CentOS:  nitrousd.init
+SystemD: salvaged.service
+Upstart: salvaged.conf
+OpenRC:  salvaged.openrc
+         salvaged.openrcconf
+CentOS:  salvaged.init
 
 have been made available to assist packagers in creating node packages here.
 

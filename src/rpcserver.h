@@ -95,7 +95,7 @@ public:
 };
 
 /**
- * N2O RPC command dispatcher.
+ * SVG RPC command dispatcher.
  */
 class CRPCTable
 {

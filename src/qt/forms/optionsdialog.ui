@@ -30,10 +30,10 @@
        <item>
         <widget class="QCheckBox" name="bitcoinAtStartup">
          <property name="toolTip">
-          <string>Automatically start N2O after logging in to the system.</string>
+          <string>Automatically start SVG after logging in to the system.</string>
          </property>
          <property name="text">
-          <string>&amp;Start N2O on system login</string>
+          <string>&amp;Start SVG on system login</string>
          </property>
         </widget>
        </item>
@@ -177,12 +177,12 @@
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>Amount of N2O to keep anonymized</string>
+            <string>Amount of SVG to keep anonymized</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="anonymizeN2O">
+          <widget class="QSpinBox" name="anonymizeSVG">
            <property name="minimum">
             <number>100</number>
            </property>
@@ -268,7 +268,7 @@
        <item>
         <widget class="QCheckBox" name="mapPortUpnp">
          <property name="toolTip">
-          <string>Automatically open the N2O client port on the router. This only works when your router supports UPnP and it is enabled.</string>
+          <string>Automatically open the SVG client port on the router. This only works when your router supports UPnP and it is enabled.</string>
          </property>
          <property name="text">
           <string>Map port using &amp;UPnP</string>
@@ -288,7 +288,7 @@
        <item>
         <widget class="QCheckBox" name="connectSocks">
          <property name="toolTip">
-          <string>Connect to the N2O network through a SOCKS5 proxy.</string>
+          <string>Connect to the SVG network through a SOCKS5 proxy.</string>
          </property>
          <property name="text">
           <string>&amp;Connect through SOCKS5 proxy (default proxy):</string>
@@ -454,7 +454,7 @@
          <item>
           <widget class="QValueComboBox" name="lang">
            <property name="toolTip">
-            <string>The user interface language can be set here. This setting will take effect after restarting N2O.</string>
+            <string>The user interface language can be set here. This setting will take effect after restarting SVG.</string>
            </property>
           </widget>
          </item>
@@ -476,7 +476,7 @@
          </property>
          <property name="text">
           <string>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/nitrous-project/nitrous-project-translations</string>
+https://www.transifex.com/salvage-project/salvage-project-translations</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

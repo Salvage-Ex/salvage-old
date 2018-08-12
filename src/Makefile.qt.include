@@ -1,24 +1,24 @@
-bin_PROGRAMS += qt/nitrous-qt
+bin_PROGRAMS += qt/salvage-qt
 EXTRA_LIBRARIES += qt/libbitcoinqt.a
 
-# nitrous qt core #
+# salvage qt core #
 QT_TS = \
-  qt/locale/nitrous_bg.ts \
-  qt/locale/nitrous_de.ts \
-  qt/locale/nitrous_en.ts \
-  qt/locale/nitrous_es.ts \
-  qt/locale/nitrous_fi.ts \
-  qt/locale/nitrous_fr.ts \
-  qt/locale/nitrous_it.ts \
-  qt/locale/nitrous_ja.ts \
-  qt/locale/nitrous_pl.ts \
-  qt/locale/nitrous_pt.ts \
-  qt/locale/nitrous_ru.ts \
-  qt/locale/nitrous_sk.ts \
-  qt/locale/nitrous_sv.ts \
-  qt/locale/nitrous_vi.ts \
-  qt/locale/nitrous_zh_CN.ts \
-  qt/locale/nitrous_zh_TW.ts
+  qt/locale/salvage_bg.ts \
+  qt/locale/salvage_de.ts \
+  qt/locale/salvage_en.ts \
+  qt/locale/salvage_es.ts \
+  qt/locale/salvage_fi.ts \
+  qt/locale/salvage_fr.ts \
+  qt/locale/salvage_it.ts \
+  qt/locale/salvage_ja.ts \
+  qt/locale/salvage_pl.ts \
+  qt/locale/salvage_pt.ts \
+  qt/locale/salvage_ru.ts \
+  qt/locale/salvage_sk.ts \
+  qt/locale/salvage_sv.ts \
+  qt/locale/salvage_vi.ts \
+  qt/locale/salvage_zh_CN.ts \
+  qt/locale/salvage_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -100,17 +100,17 @@ BITCOIN_MM = \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/nitrous.moc \
+  qt/salvage.moc \
   qt/bitcoinamountfield.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/coinmix.moc \
   qt/rpcconsole.moc
 
-QT_QRC_CPP = qt/qrc_nitrous.cpp
-QT_QRC = qt/nitrous.qrc
-QT_QRC_LOCALE_CPP = qt/qrc_nitrous_locale.cpp
-QT_QRC_LOCALE = qt/nitrous_locale.qrc
+QT_QRC_CPP = qt/qrc_salvage.cpp
+QT_QRC = qt/salvage.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_salvage_locale.cpp
+QT_QRC_LOCALE = qt/salvage_locale.qrc
 
 PROTOBUF_CC = qt/paymentrequest.pb.cc
 PROTOBUF_H = qt/paymentrequest.pb.h
@@ -227,12 +227,12 @@ RES_ICONS = \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
   qt/res/icons/tx_mn.png \
-  qt/res/icons/unit_nitrous.png \
-  qt/res/icons/unit_mnitrous.png \
-  qt/res/icons/unit_unitrous.png \
-  qt/res/icons/unit_tnitrous.png \
-  qt/res/icons/unit_tmnitrous.png \
-  qt/res/icons/unit_tunitrous.png
+  qt/res/icons/unit_salvage.png \
+  qt/res/icons/unit_msalvage.png \
+  qt/res/icons/unit_usalvage.png \
+  qt/res/icons/unit_tsalvage.png \
+  qt/res/icons/unit_tmsalvage.png \
+  qt/res/icons/unit_tusalvage.png
 
 BITCOIN_QT_CPP = \
   qt/bitcoinaddressvalidator.cpp \
@@ -300,7 +300,7 @@ RES_IMAGES = \
   qt/res/images/about.png \
   qt/res/images/splash.png \
   qt/res/images/splash_testnet.png \
-  qt/res/images/nitrous_logo_horizontal.png \
+  qt/res/images/salvage_logo_horizontal.png \
   qt/res/images/downArrow.png \
   qt/res/images/downArrow_small.png \
   qt/res/images/upArrow_small.png \
@@ -317,7 +317,7 @@ RES_CSS = \
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
-BITCOIN_RC = qt/res/nitrous-qt-res.rc
+BITCOIN_RC = qt/res/salvage-qt-res.rc
 
 BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
   -I$(builddir)/qt/forms
@@ -337,68 +337,68 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libbitcoinqt_a_OBJECTS) $(qt_nitrous_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_salvage_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# nitrous-qt binary #
-qt_nitrous_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+# salvage-qt binary #
+qt_salvage_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
 
-qt_nitrous_qt_SOURCES = qt/nitrous.cpp
+qt_salvage_qt_SOURCES = qt/salvage.cpp
 if TARGET_DARWIN
-  qt_nitrous_qt_SOURCES += $(BITCOIN_MM)
+  qt_salvage_qt_SOURCES += $(BITCOIN_MM)
 endif
 if TARGET_WINDOWS
-  qt_nitrous_qt_SOURCES += $(BITCOIN_RC)
+  qt_salvage_qt_SOURCES += $(BITCOIN_RC)
 endif
-qt_nitrous_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+qt_salvage_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
-qt_nitrous_qt_LDADD += $(LIBBITCOIN_WALLET)
+qt_salvage_qt_LDADD += $(LIBBITCOIN_WALLET)
 endif
 if ENABLE_ZMQ
-qt_nitrous_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+qt_salvage_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
-qt_nitrous_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBBITCOIN_UNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
+qt_salvage_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBBITCOIN_UNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1)
-qt_nitrous_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_nitrous_qt_LIBTOOLFLAGS = --tag CXX
+qt_salvage_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_salvage_qt_LIBTOOLFLAGS = --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
 
 .SECONDARY: $(QT_QM)
 
-qt/nitrousstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES)
+qt/salvagestrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: qt/nitrousstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: qt/salvagestrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts qt/locale/nitrous_en.ts
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts qt/locale/salvage_en.ts
 
 $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 	@test -f $(RCC)
 	@test -f $(@D)/$(<F) || cp -f $< $(@D)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name nitrous_locale $(@D)/$(<F) | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name salvage_locale $(@D)/$(<F) | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name nitrous $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name salvage $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
 
 CLEANFILES += $(CLEAN_QT)
 
-nitrous_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_nitrous_qt_OBJECTS) qt/nitrous-qt$(EXEEXT) $(LIBBITCOINQT)
+salvage_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_salvage_qt_OBJECTS) qt/salvage-qt$(EXEEXT) $(LIBBITCOINQT)
 
-nitrous_qt : qt/nitrous-qt$(EXEEXT)
+salvage_qt : qt/salvage-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

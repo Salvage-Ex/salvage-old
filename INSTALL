@@ -1,4 +1,4 @@
-Building N2O
+Building Salvage
 
 Use the autogen script to prepare the build environment.
 
@@ -8,6 +8,6 @@ Use the autogen script to prepare the build environment.
 
 Always verify the signatures and checksums.
 
-See doc/build-*.md for instructions on building nitrousd,
+See doc/build-*.md for instructions on building salvaged,
 the intended-for-services, no-graphical-interface, reference
-implementation of N2O.
+implementation of Salvage.

@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/nitrous-config.h"
+#include "config/salvage-config.h"
 #endif
 
 #include "optionsdialog.h"
@@ -214,7 +214,7 @@ void OptionsDialog::setMapper()
 
     /* Darksend Rounds */
     mapper->addMapping(ui->DarksendRounds, OptionsModel::DarksendRounds);
-    mapper->addMapping(ui->anonymizeN2O, OptionsModel::AnonymizeN2OAmount);
+    mapper->addMapping(ui->anonymizeSVG, OptionsModel::AnonymizeSVGAmount);
     mapper->addMapping(ui->showMasternodesTab, OptionsModel::ShowMasternodesTab);
 }
 

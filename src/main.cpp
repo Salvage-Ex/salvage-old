@@ -3,6 +3,7 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers 
 // Copyright (c) 2018 The Nitrous developers
+// Copyright (c) 2018 The Salvage developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -42,7 +43,7 @@ using namespace boost;
 using namespace std;
 
 #if defined(NDEBUG)
-#error "Nitrous cannot be compiled without assertions."
+#error "Salvage cannot be compiled without assertions."
 #endif
 
 /**
@@ -96,7 +97,7 @@ static void CheckBlockIndex();
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Nitrous Signed Message:\n";
+const string strMessageMagic = "Salvage Signed Message:\n";
 
 // Internal stuff
 namespace
@@ -2054,7 +2055,7 @@ static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck()
 {
-    RenameThread("nitrous-scriptch");
+    RenameThread("salvage-scriptch");
     scriptcheckqueue.Thread();
 }
 

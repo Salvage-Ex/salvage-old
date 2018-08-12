@@ -9,8 +9,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between nitrous-cli and nitrousd)
- * of a given instance of the N2O system.
+ * CBaseChainParams defines the base parameters (shared between salvage-cli and salvaged)
+ * of a given instance of the SVG system.
  */
 class CBaseChainParams
 {

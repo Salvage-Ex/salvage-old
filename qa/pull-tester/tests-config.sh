@@ -3,7 +3,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-BUILDDIR="/root/N2O"
+BUILDDIR="/root/SVG"
 EXEEXT=""
 
 # These will turn into comments if they were disabled when configuring.
@@ -11,6 +11,6 @@ ENABLE_WALLET=1
 ENABLE_UTILS=1
 ENABLE_BITCOIND=1
 
-REAL_BITCOIND="$BUILDDIR/src/nitrousd${EXEEXT}"
-REAL_BITCOINCLI="$BUILDDIR/src/nitrous-cli${EXEEXT}"
+REAL_BITCOIND="$BUILDDIR/src/salvaged${EXEEXT}"
+REAL_BITCOINCLI="$BUILDDIR/src/salvage-cli${EXEEXT}"
 

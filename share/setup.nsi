@@ -1,4 +1,4 @@
-Name "Nitrous Core (-bit)"
+Name "Salvage Core (-bit)"
 
 RequestExecutionLevel highest
 SetCompressor /SOLID lzma
@@ -6,23 +6,23 @@ SetCompressor /SOLID lzma
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
 !define VERSION 2.0.0
-!define COMPANY "Nitrous Core project"
-!define URL http://bit.nitrouss/
+!define COMPANY "Salvage Core project"
+!define URL http://bit.salvages/
 
 # MUI Symbol Definitions
-!define MUI_ICON "/root/N2O/share/pixmaps/bitcoin.ico"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "/root/N2O/share/pixmaps/nsis-wizard.bmp"
+!define MUI_ICON "/root/SVG/share/pixmaps/bitcoin.ico"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "/root/SVG/share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
-!define MUI_HEADERIMAGE_BITMAP "/root/N2O/share/pixmaps/nsis-header.bmp"
+!define MUI_HEADERIMAGE_BITMAP "/root/SVG/share/pixmaps/nsis-header.bmp"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Nitrous Core"
-!define MUI_FINISHPAGE_RUN $INSTDIR\nitrous-qt.exe
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Salvage Core"
+!define MUI_FINISHPAGE_RUN $INSTDIR\salvage-qt.exe
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/root/N2O/share/pixmaps/nsis-wizard.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/root/SVG/share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
@@ -48,18 +48,18 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile /root/N2O/nitrous-${VERSION}-win-setup.exe
+OutFile /root/SVG/salvage-${VERSION}-win-setup.exe
 !if "" == "64"
-InstallDir $PROGRAMFILES64\N2O
+InstallDir $PROGRAMFILES64\SVG
 !else
-InstallDir $PROGRAMFILES\N2O
+InstallDir $PROGRAMFILES\SVG
 !endif
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
 VIProductVersion ${VERSION}.3
-VIAddVersionKey ProductName "Nitrous Core"
+VIAddVersionKey ProductName "Salvage Core"
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
@@ -73,19 +73,19 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /root/N2O/release/nitrous-qt.exe
-    File /oname=COPYING.txt /root/N2O/COPYING
-    File /oname=readme.txt /root/N2O/doc/README_windows.txt
+    File /root/SVG/release/salvage-qt.exe
+    File /oname=COPYING.txt /root/SVG/COPYING
+    File /oname=readme.txt /root/SVG/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
-    File /root/N2O/release/nitrousd.exe
-    File /root/N2O/release/nitrous-cli.exe
+    File /root/SVG/release/salvaged.exe
+    File /root/SVG/release/salvage-cli.exe
     SetOutPath $INSTDIR\doc
-    File /r /root/N2O/doc\*.*
+    File /r /root/SVG/doc\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 
-    # Remove old wxwidgets-based-nitrous executable and locales:
-    Delete /REBOOTOK $INSTDIR\nitrous.exe
+    # Remove old wxwidgets-based-salvage executable and locales:
+    Delete /REBOOTOK $INSTDIR\salvage.exe
     RMDir /r /REBOOTOK $INSTDIR\locale
 SectionEnd
 
@@ -95,7 +95,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\nitrous-qt.exe
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\salvage-qt.exe
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
@@ -106,10 +106,10 @@ Section -post SEC0001
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" UninstallString $INSTDIR\uninstall.exe
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
-    WriteRegStr HKCR "nitrous" "URL Protocol" ""
-    WriteRegStr HKCR "nitrous" "" "URL:N2O"
-    WriteRegStr HKCR "nitrous\DefaultIcon" "" $INSTDIR\nitrous-qt.exe
-    WriteRegStr HKCR "nitrous\shell\open\command" "" '"$INSTDIR\nitrous-qt.exe" "%1"'
+    WriteRegStr HKCR "salvage" "URL Protocol" ""
+    WriteRegStr HKCR "salvage" "" "URL:SVG"
+    WriteRegStr HKCR "salvage\DefaultIcon" "" $INSTDIR\salvage-qt.exe
+    WriteRegStr HKCR "salvage\shell\open\command" "" '"$INSTDIR\salvage-qt.exe" "%1"'
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -127,7 +127,7 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    Delete /REBOOTOK $INSTDIR\nitrous-qt.exe
+    Delete /REBOOTOK $INSTDIR\salvage-qt.exe
     Delete /REBOOTOK $INSTDIR\COPYING.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
     RMDir /r /REBOOTOK $INSTDIR\daemon
@@ -139,7 +139,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk"
-    Delete /REBOOTOK "$SMSTARTUP\N2O.lnk"
+    Delete /REBOOTOK "$SMSTARTUP\SVG.lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     Delete /REBOOTOK $INSTDIR\debug.log
     Delete /REBOOTOK $INSTDIR\db.log
@@ -147,7 +147,7 @@ Section -un.post UNSEC0001
     DeleteRegValue HKCU "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKCU "${REGKEY}\Components"
     DeleteRegKey /IfEmpty HKCU "${REGKEY}"
-    DeleteRegKey HKCR "nitrous"
+    DeleteRegKey HKCR "salvage"
     RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
     RmDir /REBOOTOK $INSTDIR
     Push $R0

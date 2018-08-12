@@ -7,7 +7,7 @@
 #define BITCOIN_COMPAT_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/nitrous-config.h"
+#include "config/salvage-config.h"
 #endif
 
 #ifdef WIN32

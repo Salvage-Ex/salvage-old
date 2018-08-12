@@ -3,6 +3,7 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The Nitrous developers
+// Copyright (c) 2018 The Salvage developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -158,13 +159,13 @@ public:
         assert(hashGenesisBlock == uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"));
         assert(genesis.hashMerkleRoot == uint256("19e7a7aaeaee2729fde3363d16b1cad0af0cd6b15f40b5e5ccd32a686deb35d1"));
         
-
-        vSeeds.push_back(CDNSSeedData("nitrous1.brainchamber.com", "nitrous1.brainchamber.com"));
-        vSeeds.push_back(CDNSSeedData("nitrous2.brainchamber.com", "nitrous2.brainchamber.com"));
-	    //vSeeds.push_back(CDNSSeedData("dnsseed.brainchamber.com", "dnsseed.brainchamber.com"));
-	    //vSeeds.push_back(CDNSSeedData("dnsseed2.brainchamber.com", "dnsseed2.brainchamber.com"));
         //vFixedSeeds.clear();
         //vSeeds.clear();
+        vSeeds.push_back(CDNSSeedData("seed01.salvage.org", "seed01.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed02.salvage.org", "seed02.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed03.salvage.org", "seed03.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed04.salvage.org", "seed04.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed05.salvage.org", "seed05.salvage.org"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 53);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 112);
@@ -237,17 +238,20 @@ public:
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
-        //vSeeds.push_back(CDNSSeedData("nitrous1.brainchamber.com", "nitrous1.brainchamber.com"));
-        //vSeeds.push_back(CDNSSeedData("nitrous2.brainchamber.com", "nitrous2.brainchamber.com"));
+        vSeeds.push_back(CDNSSeedData("seed01.salvage.org", "seed01.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed02.salvage.org", "seed02.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed03.salvage.org", "seed03.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed04.salvage.org", "seed04.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed05.salvage.org", "seed05.salvage.org"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 53);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 112);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 193);
-        // Testnet Nitrous BIP32 pubkeys start with 'DRKV'
+        // Testnet Salvage BIP32 pubkeys start with 'DRKV'
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Nitrous BIP32 prvkeys start with 'DRKP'
+        // Testnet Salvage BIP32 prvkeys start with 'DRKP'
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3a)(0x80)(0x58)(0x37).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Nitrous BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet Salvage BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
@@ -306,10 +310,13 @@ public:
         nDefaultPort = 43323;
         assert(hashGenesisBlock == uint256("0x45bc75e6f085ce607ac39fe76d261b2e3d7ef19fe701e5061c5e7850c8b00533"));
 
-        //vSeeds.push_back(CDNSSeedData("nitrous1.brainchamber.com", "nitrous1.brainchamber.com"));
-        //vSeeds.push_back(CDNSSeedData("nitrous2.brainchamber.com", "nitrous2.brainchamber.com"));
-        //vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds. Yes it does.
-        //vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds. It does now!
+        //vFixedSeeds.clear();
+        //vSeeds.clear();
+        //vSeeds.push_back(CDNSSeedData("seed01.salvage.org", "seed01.salvage.org"));
+        //vSeeds.push_back(CDNSSeedData("seed02.salvage.org", "seed02.salvage.org"));
+        //vSeeds.push_back(CDNSSeedData("seed03.salvage.org", "seed03.salvage.org"));
+        //vSeeds.push_back(CDNSSeedData("seed04.salvage.org", "seed04.salvage.org"));
+        //vSeeds.push_back(CDNSSeedData("seed05.salvage.org", "seed05.salvage.org"));
 
         fRequireRPCPassword = false;
         fMiningRequiresPeers = false;

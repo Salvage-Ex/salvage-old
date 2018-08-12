@@ -64,15 +64,15 @@ bin_PROGRAMS =
 TESTS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += nitrousd
+  bin_PROGRAMS += salvaged
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += nitrous-cli nitrous-tx
+  bin_PROGRAMS += salvage-cli salvage-tx
 endif
 
 .PHONY: FORCE
-# nitrous core #
+# salvage core #
 BITCOIN_CORE_H = \
   activemasternode.h \
   addrman.h \
@@ -180,7 +180,7 @@ obj/build.h: FORCE
 	  $(abs_top_srcdir)
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between nitrousd and nitrous-qt
+# server: shared between salvaged and salvage-qt
 libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(BOOST_CPPFLAGS)
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
@@ -224,7 +224,7 @@ libbitcoin_zmq_a_SOURCES = \
   zmq/zmqpublishnotifier.cpp
 endif
 
-# wallet: shared between nitrousd and nitrous-qt, but only linked
+# wallet: shared between salvaged and salvage-qt, but only linked
 # when wallet enabled
 
 libbitcoin_wallet_a_CFLAGS = -fPIC
@@ -295,7 +295,7 @@ univalue_libbitcoin_univalue_a_SOURCES = \
   univalue/univalue_escapes.h \
   univalue/univalue.h
 
-# common: shared between nitrousd, and nitrous-qt and non-server tools
+# common: shared between salvaged, and salvage-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libbitcoin_common_a_SOURCES = \
   allocators.cpp \
@@ -351,7 +351,7 @@ libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 libbitcoin_util_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
-# cli: shared between nitrous-cli and nitrous-qt
+# cli: shared between salvage-cli and salvage-qt
 libbitcoin_cli_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
@@ -361,7 +361,7 @@ nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-nitrousd_LDADD = \
+salvaged_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UNIVALUE) \
@@ -372,40 +372,40 @@ nitrousd_LDADD = \
   $(LIBSECP256K1)
 
 if ENABLE_ZMQ
-nitrousd_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+salvaged_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 
 if ENABLE_WALLET
-nitrousd_LDADD += libbitcoin_wallet.a
+salvaged_LDADD += libbitcoin_wallet.a
 endif
-nitrousd_SOURCES = nitrousd.cpp
+salvaged_SOURCES = salvaged.cpp
 #
 
 if TARGET_WINDOWS
-nitrousd_SOURCES += nitrousd-res.rc
+salvaged_SOURCES += salvaged-res.rc
 endif
 
-nitrousd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
-nitrousd_CPPFLAGS = $(BITCOIN_INCLUDES)
-nitrousd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+salvaged_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
+salvaged_CPPFLAGS = $(BITCOIN_INCLUDES)
+salvaged_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 
-# nitrous-cli binary #
-nitrous_cli_LDADD = \
+# salvage-cli binary #
+salvage_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBBITCOIN_UTIL) \
   $(BOOST_LIBS) \
   $(SSL_LIBS) \
   $(CRYPTO_LIBS)
 
-nitrous_cli_SOURCES = \
-  nitrous-cli.cpp
+salvage_cli_SOURCES = \
+  salvage-cli.cpp
 
-nitrous_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
+salvage_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
 
-# nitrous-tx binary #
-nitrous_tx_LDADD = \
+# salvage-tx binary #
+salvage_tx_LDADD = \
   $(LIBBITCOIN_UNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -414,15 +414,15 @@ nitrous_tx_LDADD = \
   $(BOOST_LIBS) \
   $(CRYPTO_LIBS)
 
-nitrous_tx_SOURCES = nitrous-tx.cpp
-nitrous_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
+salvage_tx_SOURCES = salvage-tx.cpp
+salvage_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
-nitrous_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+salvage_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-nitrous_cli_SOURCES += nitrous-cli-res.rc
+salvage_cli_SOURCES += salvage-cli-res.rc
 endif
-nitrous_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+salvage_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/bitcoinconsensus.h

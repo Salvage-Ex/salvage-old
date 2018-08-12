@@ -1,0 +1,26 @@
+[Unit]
+Description=SVG's distributed currency daemon
+After=network.target
+
+[Service]
+User=salvage
+Group=salvage
+
+Type=forking
+PIDFile=/var/lib/salvaged/salvaged.pid
+
+ExecStart=/usr/bin/salvaged -daemon -pid=/var/lib/salvaged/salvaged.pid \
+          -conf=/etc/salvage/salvage.conf -datadir=/var/lib/salvaged
+
+ExecStop=-/usr/bin/salvage-cli -conf=/etc/salvage/salvage.conf \
+         -datadir=/var/lib/salvaged stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

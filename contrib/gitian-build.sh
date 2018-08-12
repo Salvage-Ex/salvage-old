@@ -17,7 +17,7 @@ osx=true
 SIGNER=
 VERSION=
 commit=false
-url=https://github.com/N2O/N2O
+url=https://github.com/SVG/SVG
 proc=2
 mem=2000
 lxc=true
@@ -31,7 +31,7 @@ commitFiles=true
 read -d '' usage <<- EOF
 Usage: $scriptName [-c|u|v|b|s|B|o|h|j|m|] signer version
 
-Run this script from the directory containing the nitrous, gitian-builder, gitian.sigs, and nitrous-detached-sigs.
+Run this script from the directory containing the salvage, gitian-builder, gitian.sigs, and salvage-detached-sigs.
 
 Arguments:
 signer          GPG signer to sign each build assert file
@@ -39,7 +39,7 @@ version		Version number, commit, or branch to build. If building a commit or bra
 
 Options:
 -c|--commit	Indicate that the version argument is for a commit or branch
--u|--url	Specify the URL of the repository. Default is https://github.com/N2O/N2O
+-u|--url	Specify the URL of the repository. Default is https://github.com/SVG/SVG
 -v|--verify 	Verify the gitian build
 -b|--build	Do a gitian build
 -s|--sign	Make signed binaries for Windows and Mac OSX
@@ -232,8 +232,8 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
-    git clone https://github.com/N2O/N2O.SIGS.git
-    git clone https://github.com/N2O-DETACHED.SIGS.git
+    git clone https://github.com/SVG/SVG.SIGS.git
+    git clone https://github.com/SVG-DETACHED.SIGS.git
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder
     if [[ -n "$USE_LXC" ]]
@@ -247,7 +247,7 @@ then
 fi
 
 # Set up build
-pushd ./nitrous
+pushd ./salvage
 git fetch
 git checkout ${COMMIT}
 popd
@@ -256,7 +256,7 @@ popd
 if [[ $build = true ]]
 then
 	# Make output folder
-	mkdir -p ./nitrous-binaries/${VERSION}
+	mkdir -p ./salvage-binaries/${VERSION}
 
 	# Build Dependencies
 	echo ""
@@ -266,7 +266,7 @@ then
 	mkdir -p inputs
 	wget -N -P inputs $osslPatchUrl
 	wget -N -P inputs $osslTarUrl
-	make -C ../nitrous/depends download SOURCES_PATH=`pwd`/cache/common
+	make -C ../salvage/depends download SOURCES_PATH=`pwd`/cache/common
 
 	# Linux
 	if [[ $linux = true ]]
@@ -274,9 +274,9 @@ then
             echo ""
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit nitrous=${COMMIT} --url nitrous=${url} ../nitrous/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../nitrous/contrib/gitian-descriptors/gitian-linux.yml
-	    mv build/out/nitrous-*.tar.gz build/out/src/nitrous-*.tar.gz ../nitrous-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit salvage=${COMMIT} --url salvage=${url} ../salvage/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../salvage/contrib/gitian-descriptors/gitian-linux.yml
+	    mv build/out/salvage-*.tar.gz build/out/src/salvage-*.tar.gz ../salvage-binaries/${VERSION}
 	fi
 	# Windows
 	if [[ $windows = true ]]
@@ -284,10 +284,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit nitrous=${COMMIT} --url nitrous=${url} ../nitrous/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../nitrous/contrib/gitian-descriptors/gitian-win.yml
-	    mv build/out/nitrous-*-win-unsigned.tar.gz inputs/nitrous-win-unsigned.tar.gz
-	    mv build/out/nitrous-*.zip build/out/nitrous-*.exe ../nitrous-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit salvage=${COMMIT} --url salvage=${url} ../salvage/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../salvage/contrib/gitian-descriptors/gitian-win.yml
+	    mv build/out/salvage-*-win-unsigned.tar.gz inputs/salvage-win-unsigned.tar.gz
+	    mv build/out/salvage-*.zip build/out/salvage-*.exe ../salvage-binaries/${VERSION}
 	fi
 	# Mac OSX
 	if [[ $osx = true ]]
@@ -295,10 +295,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit nitrous=${COMMIT} --url nitrous=${url} ../nitrous/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../nitrous/contrib/gitian-descriptors/gitian-osx.yml
-	    mv build/out/nitrous-*-osx-unsigned.tar.gz inputs/nitrous-osx-unsigned.tar.gz
-	    mv build/out/nitrous-*.tar.gz build/out/nitrous-*.dmg ../nitrous-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit salvage=${COMMIT} --url salvage=${url} ../salvage/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../salvage/contrib/gitian-descriptors/gitian-osx.yml
+	    mv build/out/salvage-*-osx-unsigned.tar.gz inputs/salvage-osx-unsigned.tar.gz
+	    mv build/out/salvage-*.tar.gz build/out/salvage-*.dmg ../salvage-binaries/${VERSION}
 	fi
 	popd
 
@@ -325,27 +325,27 @@ then
 	echo ""
 	echo "Verifying v${VERSION} Linux"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../nitrous/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../salvage/contrib/gitian-descriptors/gitian-linux.yml
 	# Windows
 	echo ""
 	echo "Verifying v${VERSION} Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../nitrous/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../salvage/contrib/gitian-descriptors/gitian-win.yml
 	# Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../nitrous/contrib/gitian-descriptors/gitian-osx.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../salvage/contrib/gitian-descriptors/gitian-osx.yml
 	# Signed Windows
 	echo ""
 	echo "Verifying v${VERSION} Signed Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../nitrous/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../salvage/contrib/gitian-descriptors/gitian-osx-signer.yml
 	# Signed Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Signed Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../nitrous/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../salvage/contrib/gitian-descriptors/gitian-osx-signer.yml
 	popd
 fi
 
@@ -360,10 +360,10 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../nitrous/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../nitrous/contrib/gitian-descriptors/gitian-win-signer.yml
-	    mv build/out/nitrous-*win64-setup.exe ../nitrous-binaries/${VERSION}
-	    mv build/out/nitrous-*win32-setup.exe ../nitrous-binaries/${VERSION}
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../salvage/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../salvage/contrib/gitian-descriptors/gitian-win-signer.yml
+	    mv build/out/salvage-*win64-setup.exe ../salvage-binaries/${VERSION}
+	    mv build/out/salvage-*win32-setup.exe ../salvage-binaries/${VERSION}
 	fi
 	# Sign Mac OSX
 	if [[ $osx = true ]]
@@ -371,9 +371,9 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../nitrous/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../nitrous/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    mv build/out/nitrous-osx-signed.dmg ../nitrous-binaries/${VERSION}/nitrous-${VERSION}-osx.dmg
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../salvage/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../salvage/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    mv build/out/salvage-osx-signed.dmg ../salvage-binaries/${VERSION}/salvage-${VERSION}-osx.dmg
 	fi
 	popd
 

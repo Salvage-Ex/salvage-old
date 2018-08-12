@@ -1,5 +1,5 @@
-test/test_test_nitrous-util_tests.o: test/util_tests.cpp \
- /usr/include/stdc-predef.h util.h config/nitrous-config.h compat.h \
+test/test_test_salvage-util_tests.o: test/util_tests.cpp \
+ /usr/include/stdc-predef.h util.h config/salvage-config.h compat.h \
  /usr/include/arpa/inet.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -898,7 +898,7 @@ test/test_test_nitrous-util_tests.o: test/util_tests.cpp \
 
 util.h:
 
-config/nitrous-config.h:
+config/salvage-config.h:
 
 compat.h:
 

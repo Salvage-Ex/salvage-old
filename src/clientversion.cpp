@@ -10,10 +10,10 @@
 
 /**
  * Name of client reported in the 'version' message. Report the same name
- * for both nitrousd and nitrous-qt, to make it harder for attackers to
+ * for both salvaged and salvage-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("Nitrous Core");
+const std::string CLIENT_NAME("Salvage Core");
 
 /**
  * Client version number

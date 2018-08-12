@@ -1,4 +1,4 @@
-Source: nitrous
+Source: salvage
 Section: utils
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk> ***TODO***
@@ -22,15 +22,15 @@ Build-Depends: debhelper,
  libqrencode-dev,
  libprotobuf-dev, protobuf-compiler
 Standards-Version: 3.9.2
-Homepage:http://bit.nitrouss/
-Vcs-Git: git://github.com/N2O/N2O
-Vcs-Browser: http://github.com/N2O/N2O
+Homepage:http://bit.salvages/
+Vcs-Git: git://github.com/SVG/SVG
+Vcs-Browser: http://github.com/SVG/SVG
 
-Package: nitrousd
+Package: salvaged
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- N2O is a free open source peer-to-peer electronic cash system that
+ SVG is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
@@ -39,14 +39,14 @@ Description: peer-to-peer network based digital currency - daemon
  Full transaction history is stored locally at each client.  This
  requires 1+ GB of space, slowly growing.
  .
- This package provides the daemon, nitrousd, and the CLI tool
- nitrous-cli to interact with the daemon.
+ This package provides the daemon, salvaged, and the CLI tool
+ salvage-cli to interact with the daemon.
 
-Package: nitrous-qt
+Package: salvage-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- N2O is a free open source peer-to-peer electronic cash system that
+ SVG is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
@@ -55,4 +55,4 @@ Description: peer-to-peer network based digital currency - Qt GUI
  Full transaction history is stored locally at each client.  This
  requires 1+ GB of space, slowly growing.
  .
- This package provides N2O-Qt, a GUI for N2O based on Qt.
+ This package provides SVG-Qt, a GUI for SVG based on Qt.

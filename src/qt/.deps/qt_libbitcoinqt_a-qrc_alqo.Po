@@ -1,4 +1,4 @@
-qt/qt_libbitcoinqt_a-qrc_nitrous.o: qt/qrc_nitrous.cpp \
+qt/qt_libbitcoinqt_a-qrc_salvage.o: qt/qrc_salvage.cpp \
  /usr/include/stdc-predef.h
 
 /usr/include/stdc-predef.h:

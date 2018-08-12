@@ -1,12 +1,12 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers 
-// Copyright (c) 2018 The Nitrous developers
+// Copyright (c) 2018 The Salvage developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/nitrous-config.h"
+#include "config/salvage-config.h"
 #endif
 
 #include "optionsmodel.h"
@@ -62,7 +62,7 @@ void OptionsModel::Init()
 
     // Display
     if (!settings.contains("nDisplayUnit"))
-        settings.setValue("nDisplayUnit", BitcoinUnits::N2O);
+        settings.setValue("nDisplayUnit", BitcoinUnits::SVG);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
     if (!settings.contains("strThirdPartyTxUrls"))
@@ -76,11 +76,11 @@ void OptionsModel::Init()
     if (!settings.contains("nDarksendRounds"))
         settings.setValue("nDarksendRounds", 2);
 
-    if (!settings.contains("nAnonymizeN2OAmount"))
-        settings.setValue("nAnonymizeN2OAmount", 1000);
+    if (!settings.contains("nAnonymizeSVGAmount"))
+        settings.setValue("nAnonymizeSVGAmount", 1000);
 
     nDarksendRounds = settings.value("nDarksendRounds").toLongLong();
-    nAnonymizeN2OAmount = settings.value("nAnonymizeN2OAmount").toLongLong();
+    nAnonymizeSVGAmount = settings.value("nAnonymizeSVGAmount").toLongLong();
 
     if (!settings.contains("fShowMasternodesTab"))
         settings.setValue("fShowMasternodesTab", masternodeConfig.getCount());
@@ -147,8 +147,8 @@ void OptionsModel::Init()
 
     if (settings.contains("nDarksendRounds"))
         SoftSetArg("-Darksendrounds", settings.value("nDarksendRounds").toString().toStdString());
-    if (settings.contains("nAnonymizeN2OAmount"))
-        SoftSetArg("-anonymizenitrousamount", settings.value("nAnonymizeN2OAmount").toString().toStdString());
+    if (settings.contains("nAnonymizeSVGAmount"))
+        SoftSetArg("-anonymizesalvageamount", settings.value("nAnonymizeSVGAmount").toString().toStdString());
 
     language = settings.value("language").toString();
 }
@@ -159,7 +159,7 @@ void OptionsModel::Reset()
 
     // Remove all entries from our QSettings object
     settings.clear();
-    resetSettings = true; // Needed in nitrous.cpp during shotdown to also remove the window positions
+    resetSettings = true; // Needed in salvage.cpp during shotdown to also remove the window positions
 
     // default setting for OptionsModel::StartAtStartup - disabled
     if (GUIUtil::GetStartOnSystemStartup())
@@ -228,8 +228,8 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return settings.value("nThreadsScriptVerif");
         case DarksendRounds:
             return QVariant(nDarksendRounds);
-        case AnonymizeN2OAmount:
-            return QVariant(nAnonymizeN2OAmount);
+        case AnonymizeSVGAmount:
+            return QVariant(nAnonymizeSVGAmount);
         case Listen:
             return settings.value("fListen");
         default:
@@ -338,10 +338,10 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
             settings.setValue("nDarksendRounds", nDarksendRounds);
             emit DarksendRoundsChanged(nDarksendRounds);
             break;
-        case AnonymizeN2OAmount:
-            nAnonymizeN2OAmount = value.toInt();
-            settings.setValue("nAnonymizeN2OAmount", nAnonymizeN2OAmount);
-            emit anonymizeN2OAmountChanged(nAnonymizeN2OAmount);
+        case AnonymizeSVGAmount:
+            nAnonymizeSVGAmount = value.toInt();
+            settings.setValue("nAnonymizeSVGAmount", nAnonymizeSVGAmount);
+            emit anonymizeSVGAmountChanged(nAnonymizeSVGAmount);
             break;
         case CoinControlFeatures:
             fCoinControlFeatures = value.toBool();
