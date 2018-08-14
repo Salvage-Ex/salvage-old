@@ -1666,7 +1666,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 
 	int64_t ret = 0;
 	
-        ret = blockValue * 0.7;
+        ret = blockValue * 0.75;
 	
 	return ret;
 }
@@ -5415,6 +5415,27 @@ int ActiveProtocol()
 
     return MIN_PEER_PROTO_VERSION_BEFORE_ENFORCEMENT;
 }
+
+int ActiveCollateral()
+{
+    int nHeight = GetHeight();
+    int nMinCollat = Params().MinCollateral()
+
+       if( nHeight > 1 && nHeight <= 131400 ) {
+            return = nMinCollat; //Collateral 1.25k
+        } else if( nHeight > 131400 && nHeight <= 262800 ) {
+            return = nMinCollat * 2; //2.5k
+        } else if( nHeight > 262800 && nHeight <= 394200 ) {
+            return nMinCollat * 4; //5k
+        } else if( nHeight > 394200 && nHeight <= 525600 ) {
+            return nMinCollat * 8; //10k
+        } else if( nHeight > 525600 && nHeight <= 657000 ) {
+            return nMinCollat * 16; //20k
+        } else { //if( nHeight > 657000)
+            return nMinCollat * 32; //40k
+        }
+}
+
 
 // requires LOCK(cs_vRecvMsg)
 bool ProcessMessages(CNode* pfrom)
