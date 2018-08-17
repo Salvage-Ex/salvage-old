@@ -263,7 +263,6 @@ public:
     {
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
-        strNetworkID = "regtest";
         pchMessageStart[0] = 0x6A;
         pchMessageStart[1] = 0x34;
         pchMessageStart[2] = 0x51;
