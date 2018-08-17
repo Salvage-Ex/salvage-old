@@ -8,15 +8,12 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "chainparams.h"
-
 #include "random.h"
 #include "util.h"
 #include "utilstrencodings.h"
 
 #include <assert.h>
-
 #include <boost/assign/list_of.hpp>
-
 
 using namespace std;
 using namespace boost::assign;
@@ -57,11 +54,11 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
- 	(0, uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"))
-  	(500,   uint256("0x0000000d5fd7d8854fd96e93b34bbdc9d8afccb5eb761e24f70044c9e2b97c7b"))
-	(10000, uint256("0xdbe8980528ecc4775c72b3f2befd14f12d784470f784165ac10be11ce89f326a"))
-	(20000,	uint256("0x484924e022dc954895a9f6663648843bc60d629e568ce2319fb0ea17cee33cf2"))
-	(40911,	uint256("0x1a7296f022fda8a574d23f0d3c01da3f159b2b8fc6f85a5e8ea256ffcc3727c2"));
+ 	(0, uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"));
+//  (500,   uint256("0x0000000d5fd7d8854fd96e93b34bbdc9d8afccb5eb761e24f70044c9e2b97c7b"))
+//  (10000, uint256("0xdbe8980528ecc4775c72b3f2befd14f12d784470f784165ac10be11ce89f326a"))
+//	(20000,	uint256("0x484924e022dc954895a9f6663648843bc60d629e568ce2319fb0ea17cee33cf2"))
+//	(40911,	uint256("0x1a7296f022fda8a574d23f0d3c01da3f159b2b8fc6f85a5e8ea256ffcc3727c2"));
 ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
@@ -73,6 +70,7 @@ static const Checkpoints::CCheckpointData data = {
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of(0, uint256("0x"));
+	
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
     0,
@@ -81,6 +79,7 @@ static const Checkpoints::CCheckpointData dataTestnet = {
 
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of(0, uint256("0x"));
+	
 static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
     0,
@@ -92,95 +91,88 @@ class CMainParams : public CChainParams
 public:
     CMainParams()
     {
-        networkID = CBaseChainParams::MAIN;
-        strNetworkID = "main";
+        networkID                      = CBaseChainParams::MAIN;
+        strNetworkID                   = "main";
+
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x62;
-        pchMessageStart[1] = 0x4A;
-        pchMessageStart[2] = 0x57;
-        pchMessageStart[3] = 0x44;
-        vAlertPubKey = ParseHex("04266db20be5c53b93678e2e41c9def7af38197280c65e813f682adf2ed501ac186022562dbdf2ce3204d07432660fb61ecad8e78b6b8d39c568fb892db8ecb736");
-        nDefaultPort = 32323;
-        bnProofOfWorkLimit = ~uint256(0) >> 20;
-        nSubsidyHalvingInterval = 999999;
-        nMaxReorganizationDepth = 100;
-        nEnforceBlockUpgradeMajority = 510;
-        nRejectBlockOutdatedMajority = 650;
-        nToCheckBlockUpgradeMajority = 1000;
-        nMinerThreads = 0;
-        nTargetTimespan = 10 * 60; // 10 minutes
-        nTargetSpacing = 2 * 60; // 2 minute block time
-        nLastPOWBlock = 1000;
-        nMaturity = 40;
-        nMasternodeCountDrift = 20;
-	//* variable masternode collateral
-        nMinCollateral = 1250;
-       
-        //MasternodeColleteralLimDev() replaced by ActiveCollateral() function in main.cpp
-        //This was done for dynamic collateral changes	
-        //Params().MasternodeColleteralLimxDev()
+        pchMessageStart[0]             = 0x62;
+        pchMessageStart[1]             = 0x4A;
+        pchMessageStart[2]             = 0x57;
+        pchMessageStart[3]             = 0x44;
+        vAlertPubKey                   = ParseHex("04266db20be5c53b93678e2e41c9def7af38197280c65e813f682adf2ed501ac186022562dbdf2ce3204d07432660fb61ecad8e78b6b8d39c568fb892db8ecb736");
+        nDefaultPort                   = 41400;
+        bnProofOfWorkLimit             = ~uint256(0) >> 20;
+        nSubsidyHalvingInterval        = 999999;
+        nMaxReorganizationDepth        = 100;
+        nEnforceBlockUpgradeMajority   = 510;
+        nRejectBlockOutdatedMajority   = 650;
+        nToCheckBlockUpgradeMajority   = 1000;
+        nMinerThreads                  = 0;
+        nTargetTimespan                = 10 * 60; // 10 minutes
+        nTargetSpacing                 = 2 * 60; // 2 minute block time
+        nLastPOWBlock                  = 1000;
+        nMaturity                      = 40;
+        nMasternodeCountDrift          = 20;
+        nModifierUpdateBlock           = 50000; // we use the version 2 for dmd ** not used **
+        nMaxMoneyOut                   = 250000000 * COIN;
 
-        nModifierUpdateBlock = 50000; // we use the version 2 for dmd
-        nMaxMoneyOut = 250000000 * COIN;
+	    //* variable masternode collateral
+        nMinCollateral                 = 1250;
 
-        const char* pszTimestamp = "MSNBC 4/June/2018 Trump tweets that he has absolute right to pardon himself";
+        const char* pszTimestamp       = "Salvage Team 18/Aug/2018 we rules the world!";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
-        txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 0 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
+        txNew.vin[0].scriptSig         = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
+        txNew.vout[0].nValue           = 0 * COIN;
+        txNew.vout[0].scriptPubKey     = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
-        genesis.hashPrevBlock = 0;
-        genesis.hashMerkleRoot = genesis.BuildMerkleTree();
-        genesis.nVersion = 1;
-        genesis.nTime = 1528140682;
-        genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 2178701;
+        genesis.hashPrevBlock          = 0;
+        genesis.hashMerkleRoot         = genesis.BuildMerkleTree();
+        genesis.nVersion               = 1;
+        genesis.nTime                  = 1528140682;
+        genesis.nBits                  = 0x1e0ffff0;
+        genesis.nNonce                 = 2178701;
 		
-        hashGenesisBlock = genesis.GetHash();
-		//printf("%s\n", hashGenesisBlock.ToString().c_str());
-		//printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
-        assert(hashGenesisBlock == uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"));
-        assert(genesis.hashMerkleRoot == uint256("19e7a7aaeaee2729fde3363d16b1cad0af0cd6b15f40b5e5ccd32a686deb35d1"));
+        hashGenesisBlock               = genesis.GetHash();
+        assert(hashGenesisBlock        == uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"));
+        assert(genesis.hashMerkleRoot  == uint256("19e7a7aaeaee2729fde3363d16b1cad0af0cd6b15f40b5e5ccd32a686deb35d1"));
         
         //vFixedSeeds.clear();
         //vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("seed01.salvage.org", "seed01.salvage.org"));
-        vSeeds.push_back(CDNSSeedData("seed02.salvage.org", "seed02.salvage.org"));
-        vSeeds.push_back(CDNSSeedData("seed03.salvage.org", "seed03.salvage.org"));
-        vSeeds.push_back(CDNSSeedData("seed04.salvage.org", "seed04.salvage.org"));
-        vSeeds.push_back(CDNSSeedData("seed05.salvage.org", "seed05.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed01.salvageproject.org", "seed01.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed02.salvageproject.org", "seed02.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed03.salvageproject.org", "seed03.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed04.salvageproject.org", "seed04.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed05.salvageproject.org", "seed05.salvageproject.org"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 53);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 112);
-        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 193);
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
-        // 	BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md 109 	0x8000006d
-        base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x6d).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 63);		// Start with 'S' from https://en.bitcoin.it/wiki/List_of_address_prefixes
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 65);		// Start with 'T' from https://en.bitcoin.it/wiki/List_of_address_prefixes
+        base58Prefixes[SECRET_KEY]     = std::vector<unsigned char>(1, 193);
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x37).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGP'
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x3F).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGS'
+        base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x92)(0xf0).convert_to_container<std::vector<unsigned char> >(); // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md 109 	0x8000006d
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-        fRequireRPCPassword = true;
-        fMiningRequiresPeers = true;
-        fAllowMinDifficultyBlocks = false;
-        fDefaultConsistencyChecks = false;
-        fRequireStandard = true;
-        fMineBlocksOnDemand = false;
-        fSkipProofOfWorkCheck = false;
+        fRequireRPCPassword            = true;
+        fMiningRequiresPeers           = false /*true*/;
+        fAllowMinDifficultyBlocks      = false;
+        fDefaultConsistencyChecks      = false;
+        fRequireStandard               = true;
+        fMineBlocksOnDemand            = false;
+        fSkipProofOfWorkCheck          = false;
         fTestnetToBeDeprecatedFieldRPC = false;
-        fHeadersFirstSyncingActive = false;
+        fHeadersFirstSyncingActive     = false;
 
-
-        nPoolMaxTransactions = 3;
-        strSporkKey = "0478c3e932fbe183b2f665de937866cb1cfc5ed4b0bf733b72286f265ffc03ff52dfd669fbb3f77d630e5393da65c721a9a891d2c4c6aa515dfd25ffe545582357";
-        strDarksendPoolDummyAddress = "NQM4tzZum4iLeK9gGHdPYW96ewcE6wFAyh";
-        nStartMasternodePayments = 1526012494; 
+        nPoolMaxTransactions           = 3;
+        strSporkKey                    = "0478c3e932fbe183b2f665de937866cb1cfc5ed4b0bf733b72286f265ffc03ff52dfd669fbb3f77d630e5393da65c721a9a891d2c4c6aa515dfd25ffe545582357";
+        strDarksendPoolDummyAddress    = "NQM4tzZum4iLeK9gGHdPYW96ewcE6wFAyh";
+        nStartMasternodePayments       = 1534550400; 	// Saturday, 18 August 2018 00:00:00  ** NOT USED **
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const
@@ -198,68 +190,61 @@ class CTestNetParams : public CMainParams
 public:
     CTestNetParams()
     {
-        networkID = CBaseChainParams::TESTNET;
-        strNetworkID = "test";
-        pchMessageStart[0] = 0x24;
-        pchMessageStart[1] = 0x61;
-        pchMessageStart[2] = 0x5A;
-        pchMessageStart[3] = 0x66;
-        vAlertPubKey = ParseHex("0485286086a0871308bf36519edb18d95bbe9b098abe14ec9b684b5255028ec644bacdbddb98a522a6bcd7ab8e7d3582d7a5b9bf59c427f7eabce447b5ba6de25f");
-        nDefaultPort = 42323;
-        nEnforceBlockUpgradeMajority = 51;
-        nRejectBlockOutdatedMajority = 75;
-        nToCheckBlockUpgradeMajority = 100;
-        nMinerThreads = 0;
-        nTargetTimespan = 10 * 60;
-        nTargetSpacing = 2 * 60; // 2 minute block time
-        nLastPOWBlock = 200;
-        nMaturity = 15;
-        nModifierUpdateBlock = 51197; //approx Mon, 30 Apr 2018 04:00:00 GMT
-        nMaxMoneyOut = 250000000 * COIN;
+        networkID                      = CBaseChainParams::TESTNET;
+        strNetworkID                   = "test";
+        pchMessageStart[0]             = 0x24;
+        pchMessageStart[1]             = 0x61;
+        pchMessageStart[2]             = 0x5A;
+        pchMessageStart[3]             = 0x66;
+        vAlertPubKey                   = ParseHex("0485286086a0871308bf36519edb18d95bbe9b098abe14ec9b684b5255028ec644bacdbddb98a522a6bcd7ab8e7d3582d7a5b9bf59c427f7eabce447b5ba6de25f");
+        nDefaultPort                   = 42400;
+        nEnforceBlockUpgradeMajority   = 51;
+        nRejectBlockOutdatedMajority   = 75;
+        nToCheckBlockUpgradeMajority   = 100;
+        nMinerThreads                  = 0;
+        nTargetTimespan                = 10 * 60;
+        nTargetSpacing                 = 2 * 60; // 2 minute block time
+        nLastPOWBlock                  = 200;
+        nMaturity                      = 15;
+        nModifierUpdateBlock           = 51197; //approx Mon, 30 Apr 2018 04:00:00 GMT
+        nMaxMoneyOut                   = 250000000 * COIN;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1528140682;
-        genesis.nNonce = 2178701;
+        genesis.nTime                  = 1528140682;
+        genesis.nNonce                 = 2178701;
 
-
-        hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"));
+        hashGenesisBlock               = genesis.GetHash();
+        assert(hashGenesisBlock        == uint256("0x00000e46b1276e3db5197e5935800cd22761c1321e06e841c164f205b9497fbe"));
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("seed01.salvage.org", "seed01.salvage.org"));
-        vSeeds.push_back(CDNSSeedData("seed02.salvage.org", "seed02.salvage.org"));
-        vSeeds.push_back(CDNSSeedData("seed03.salvage.org", "seed03.salvage.org"));
-        vSeeds.push_back(CDNSSeedData("seed04.salvage.org", "seed04.salvage.org"));
-        vSeeds.push_back(CDNSSeedData("seed05.salvage.org", "seed05.salvage.org"));
+        vSeeds.push_back(CDNSSeedData("seed01.salvageproject.org", "seed01.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed02.salvageproject.org", "seed02.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed03.salvageproject.org", "seed03.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed04.salvageproject.org", "seed04.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed05.salvageproject.org", "seed05.salvageproject.org"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 53);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 112);
-        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 193);
-        // Testnet Salvage BIP32 pubkeys start with 'DRKV'
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Salvage BIP32 prvkeys start with 'DRKP'
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3a)(0x80)(0x58)(0x37).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Salvage BIP44 coin type is '1' (All coin's testnet default)
-        base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 125);	// Start with 's' from https://en.bitcoin.it/wiki/List_of_address_prefixes
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 127);	// start with 't' from https://en.bitcoin.it/wiki/List_of_address_prefixes
+        base58Prefixes[SECRET_KEY]     = std::vector<unsigned char>(1, 193);
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x41).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGT'
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x44).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGU'
+        base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >(); // Testnet Salvage BIP44 coin type is '1' (All coin's testnet default)
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
-
-        fRequireRPCPassword = true;
-        fMiningRequiresPeers = true;
-        fAllowMinDifficultyBlocks = true;
-        fDefaultConsistencyChecks = false;
-        fRequireStandard = false;
-        fMineBlocksOnDemand = false;
+        fRequireRPCPassword            = true;
+        fMiningRequiresPeers           = false /*true*/;
+        fAllowMinDifficultyBlocks      = true;
+        fDefaultConsistencyChecks      = false;
+        fRequireStandard               = false;
+        fMineBlocksOnDemand            = false;
         fTestnetToBeDeprecatedFieldRPC = true;
 
-
-
-        nPoolMaxTransactions = 2;
-        strSporkKey = "04363509d5c65f5a9ca7ceedad4887007ae85469d249a6f566b788504ee5e105bcf1bbc515f49a7aac3bceb8864bb2ba84bebd92c66ff9022309e2bfbd5f70d11f";
-        strDarksendPoolDummyAddress = "";
-        nStartMasternodePayments = 1526012495;
+        nPoolMaxTransactions           = 2;
+        strSporkKey                    = "04363509d5c65f5a9ca7ceedad4887007ae85469d249a6f566b788504ee5e105bcf1bbc515f49a7aac3bceb8864bb2ba84bebd92c66ff9022309e2bfbd5f70d11f";
+        strDarksendPoolDummyAddress    = "";
+        nStartMasternodePayments       = 1534550400; 	// Saturday, 18 August 2018 00:00:00
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
@@ -296,7 +281,7 @@ public:
         genesis.nNonce = 987655;
 		
         hashGenesisBlock = genesis.GetHash();
-        nDefaultPort = 43323;
+        nDefaultPort = 43400;
         assert(hashGenesisBlock == uint256("0x45bc75e6f085ce607ac39fe76d261b2e3d7ef19fe701e5061c5e7850c8b00533"));
 
         //vFixedSeeds.clear();
@@ -358,8 +343,8 @@ public:
     virtual void setAllowMinDifficultyBlocks(bool afAllowMinDifficultyBlocks) { fAllowMinDifficultyBlocks = afAllowMinDifficultyBlocks; }
     virtual void setSkipProofOfWorkCheck(bool afSkipProofOfWorkCheck) { fSkipProofOfWorkCheck = afSkipProofOfWorkCheck; }
 };
-static CUnitTestParams unitTestParams;
 
+static CUnitTestParams unitTestParams;
 
 static CChainParams* pCurrentParams = 0;
 

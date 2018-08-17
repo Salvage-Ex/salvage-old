@@ -98,7 +98,6 @@ public:
     CBaseChainParams::Network NetworkID() const { return networkID; }
     int MinCollateral() const { return nMinCollateral; }
 
-
 protected:
     CChainParams() {}
 
@@ -143,7 +142,6 @@ protected:
     std::string strDarksendPoolDummyAddress;
     int64_t nStartMasternodePayments;
     int nMinCollateral;
-
 };
 
 /** 
