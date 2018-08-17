@@ -205,6 +205,8 @@ void UnloadBlockIndex();
 /** See whether the protocol update is enforced for connected nodes */
 int ActiveProtocol();
 /** Process protocol messages received from a given node */
+int ActiveCollateral();
+/** Process protocol messages received from a given node */
 bool ProcessMessages(CNode* pfrom);
 /**
  * Send queued protocol messages to be sent to a give node.

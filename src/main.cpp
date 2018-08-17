@@ -5419,12 +5419,12 @@ int ActiveProtocol()
 int ActiveCollateral()
 {
     int nHeight = GetHeight();
-    int nMinCollat = Params().MinCollateral()
+    int nMinCollat = Params().MinCollateral();
 
        if( nHeight > 1 && nHeight <= 131400 ) {
-            return = nMinCollat; //Collateral 1.25k
+            return nMinCollat; //Collateral 1.25k
         } else if( nHeight > 131400 && nHeight <= 262800 ) {
-            return = nMinCollat * 2; //2.5k
+            return nMinCollat * 2; //2.5k
         } else if( nHeight > 262800 && nHeight <= 394200 ) {
             return nMinCollat * 4; //5k
         } else if( nHeight > 394200 && nHeight <= 525600 ) {
