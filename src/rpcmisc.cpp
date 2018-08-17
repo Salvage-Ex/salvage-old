@@ -395,6 +395,50 @@ Value createmultisig(const Array& params, bool fHelp)
     return result;
 }
 
+Value makekeypair(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1) {
+        string msg = "makekeypair [\"prefix\"]\n"
+                     "\nCreates a new key pair.\n"
+                     "It returns a json object with the public and private key.\n"
+
+                     "\nArguments:\n"
+                     "1. prefix      (string, optional) The prefix for the address.\n"
+
+                     "\nResult:\n"
+                     "[\n"
+                     "  \"PublicKey\":\"public key\",  (string) The public key.\n"
+                     "  \"PrivateKey\":\"private key\" (string) The private key.\n"
+                     "]\n";
+        throw runtime_error(msg);
+    }
+
+    string strPrefix = "";
+    if (params.size() > 0)
+        strPrefix = params[0].get_str();
+    
+    CKey key;
+    CPubKey pubkey;
+    string pubkeyhex;
+    int nCount = 0;
+    do
+    {
+        key.MakeNewKey(false);
+        nCount++;
+        pubkey = key.GetPubKey();
+        pubkeyhex = HexStr(pubkey.begin(), pubkey.end());
+    } while (nCount < 10000 && strPrefix != pubkeyhex.substr(0, strPrefix.size()));
+    
+    if (strPrefix != pubkeyhex.substr(0, strPrefix.size()))
+        return Value::null;
+    
+    Object obj;
+    obj.push_back(Pair("PublicKey", pubkeyhex));
+    obj.push_back(Pair("PrivateKey", CBitcoinSecret(key).ToString()));
+	
+    return obj;	
+}
+
 Value verifymessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 3)
