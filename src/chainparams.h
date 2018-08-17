@@ -79,7 +79,8 @@ public:
     CAmount MaxMoneyOut() const { return nMaxMoneyOut; }
     /** The masternode count that we will allow the see-saw reward payments to be off by */
     int MasternodeCountDrift() const { return nMasternodeCountDrift; }
-	int MasternodeColleteralLimxDev() const { return nMasternodeColleteralLimxDev; }
+    //MasternodeColleteralLimxDev was replaced by ActiveCollateral() in Main.cpp
+	//int MasternodeColleteralLimxDev() const { return nMasternodeColleteralLimxDev; }
     /** Make miner stop after a block is found. In RPC, don't return until nGenProcLimit blocks are generated */
     bool MineBlocksOnDemand() const { return fMineBlocksOnDemand; }
     /** In the future use NetworkIDString() for RPC fields */
@@ -95,6 +96,8 @@ public:
     std::string DarksendPoolDummyAddress() const { return strDarksendPoolDummyAddress; }
     int64_t StartMasternodePayments() const { return nStartMasternodePayments; }
     CBaseChainParams::Network NetworkID() const { return networkID; }
+    int MinCollateral() const { return nMinCollateral; }
+
 
 protected:
     CChainParams() {}
@@ -104,7 +107,7 @@ protected:
     //! Raw pub key bytes for the broadcast alert signing key.
     std::vector<unsigned char> vAlertPubKey;
     int nDefaultPort;
-	int nMasternodeColleteralLimxDev;
+	//int nMasternodeColleteralLimxDev;
     uint256 bnProofOfWorkLimit;
     int nMaxReorganizationDepth;
     int nSubsidyHalvingInterval;
@@ -139,6 +142,8 @@ protected:
     std::string strSporkKey;
     std::string strDarksendPoolDummyAddress;
     int64_t nStartMasternodePayments;
+    int nMinCollateral;
+
 };
 
 /** 

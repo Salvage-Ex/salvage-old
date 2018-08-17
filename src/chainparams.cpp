@@ -118,21 +118,10 @@ public:
         nMaturity = 40;
         nMasternodeCountDrift = 20;
 	//* variable masternode collateral
-	   int nHeight = chainActive.Height();
-       const int nMinCollat = 1250;
-	   if( nHeight > 1 && nHeight <= 131400 ) {
-	         nMasternodeColleteralLimxDev = nMinCollat; //Collateral 1.25k
-        } else if( nHeight > 131400 && nHeight <= 262800 ) {
-	       nMasternodeColleteralLimxDev = nMinCollat * 2; //2.5k
-        } else if( nHeight > 262800 && nHeight <= 394200 ) {
-	       nMasternodeColleteralLimxDev = nMinCollat * 4; //5k
-        } else if( nHeight > 394200 && nHeight <= 525600 ) {
-	       nMasternodeColleteralLimxDev = nMinCollat * 8; //10k
-        } else if( nHeight > 525600 && nHeight <= 657000 ) {
-           nMasternodeColleteralLimxDev = nMinCollat * 16; //20k
-        } else if( nHeight > 657000) {
-	      nMasternodeColleteralLimxDev = nMinCollat * 32; //40k
-        }
+        nMinCollateral = 1250;
+       
+        //MasternodeColleteralLimDev() replaced by ActiveCollateral() function in main.cpp
+        //This was done for dynamic collateral changes	
         //Params().MasternodeColleteralLimxDev()
 
         nModifierUpdateBlock = 50000; // we use the version 2 for dmd
