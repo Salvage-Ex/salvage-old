@@ -54,27 +54,26 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-	(0, uint256("0xabc9f92f267fd8f688f28b339a0f19c323142d39cd12076ca0d83a7bc6052b5a"));
-// 	(0, uint256("0x000003a08430a9bee468369b8b792f0ffeb62bf46e73ad2a64df7a1c983be487"));
+	(0, uint256("0x0000026bbe805b61a2dab88a79f32e589e7dc3de6ee053ed1dbafe0a4568ff26"));
 ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1534552166, // * UNIX timestamp of last checkpoint block
-    0,    // * total number of transactions between genesis and last checkpoint
-                //   (the tx=... number in the SetBestChain debug.log lines)
-    720        // * estimated number of transactions per day after checkpoint
+    1534560210, // * UNIX timestamp of last checkpoint block
+    0,          // * total number of transactions between genesis and last checkpoint (the tx=... number in the SetBestChain debug.log lines)
+    720         // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of
- 	(0, uint256("0x0000090e74eefe641e92e17fabf884fccef01bc30d3c9106dd88e28f159434d2"));
+ 	(0, uint256("0x0000093615096ba153909558b443132feeb077419df0922cb5ed8ef993839e0e"));
 ;
 
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1534553156,
-    0,
-    720};
+    1534560319, // * UNIX timestamp of last checkpoint block
+    0,          // * total number of transactions between genesis and last checkpoint (the tx=... number in the SetBestChain debug.log lines)
+    720         // * estimated number of transactions per day after checkpoint
+};
 
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of(0, uint256("0x"));
@@ -122,7 +121,14 @@ public:
 	    //* variable masternode collateral
         nMinCollateral                 = 1250;
 
-        const char* pszTimestamp       = "Salvage Team 18/Aug/2018 we rules the world!";
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 63);		// Start with 'S' from https://en.bitcoin.it/wiki/List_of_address_prefixes
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 65);		// Start with 'T' from https://en.bitcoin.it/wiki/List_of_address_prefixes
+        base58Prefixes[SECRET_KEY]     = std::vector<unsigned char>(1, 193);
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x37).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGP'
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x3F).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGS'
+        base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x92)(0xf0).convert_to_container<std::vector<unsigned char> >(); // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md 109 	0x8000006d
+
+        const char* pszTimestamp       = "Salvage Team 18 Aug 2018 we rules the world";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -133,18 +139,16 @@ public:
         genesis.hashPrevBlock          = 0;
         genesis.hashMerkleRoot         = genesis.BuildMerkleTree();
         genesis.nVersion               = 1;
-        genesis.nTime                  = 1534552166;
-        genesis.nBits                  = 0x1e0ffff0;
-        genesis.nNonce                 = 3342821;
+        genesis.nTime                  = 1534560210;
+        genesis.nBits                  = 184759812;
+        genesis.nNonce                 = 517074;
 		
         hashGenesisBlock               = genesis.GetHash();
-        printf("Main Hash   %s\n", hashGenesisBlock.ToString().c_str());
-        printf("Main Merkle %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        //printf("Main Hash   %s\n", hashGenesisBlock.ToString().c_str());
+        //printf("Main Merkle %s\n", genesis.hashMerkleRoot.ToString().c_str());
 		
-		assert(hashGenesisBlock        == uint256("0xabc9f92f267fd8f688f28b339a0f19c323142d39cd12076ca0d83a7bc6052b5a"));
-		assert(genesis.hashMerkleRoot  == uint256("ec32f08e74374ee7ca4338cac4960473068061ed6125517c416aab3db9abf99b"));
-        //assert(hashGenesisBlock        == uint256("0x000003a08430a9bee468369b8b792f0ffeb62bf46e73ad2a64df7a1c983be487"));
-        //assert(genesis.hashMerkleRoot  == uint256("64ed451c5b355c107345944240217409044c6e5283875ec72a981f358ecb6640"));
+		assert(hashGenesisBlock        == uint256("0x0000026bbe805b61a2dab88a79f32e589e7dc3de6ee053ed1dbafe0a4568ff26"));
+		assert(genesis.hashMerkleRoot  == uint256("c10314dcf338db21791041f578fcd51f98f07369a27923f1cd355a3d93e96e46"));
         
         //vFixedSeeds.clear();
         //vSeeds.clear();
@@ -153,13 +157,6 @@ public:
         vSeeds.push_back(CDNSSeedData("seed03.salvageproject.org", "seed03.salvageproject.org"));
         vSeeds.push_back(CDNSSeedData("seed04.salvageproject.org", "seed04.salvageproject.org"));
         vSeeds.push_back(CDNSSeedData("seed05.salvageproject.org", "seed05.salvageproject.org"));
-
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 63);		// Start with 'S' from https://en.bitcoin.it/wiki/List_of_address_prefixes
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 65);		// Start with 'T' from https://en.bitcoin.it/wiki/List_of_address_prefixes
-        base58Prefixes[SECRET_KEY]     = std::vector<unsigned char>(1, 193);
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x37).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGP'
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x3F).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGS'
-        base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x92)(0xf0).convert_to_container<std::vector<unsigned char> >(); // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md 109 	0x8000006d
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
@@ -214,14 +211,13 @@ public:
         nMaxMoneyOut                   = 250000000 * COIN;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime                  = 1534553156;
-        genesis.nNonce                 = 1496946;
+        genesis.nTime                  = 1534560319;
+        genesis.nNonce                 = 100640;
 
         hashGenesisBlock               = genesis.GetHash();
-        printf("Test Hash   %s\n", hashGenesisBlock.ToString().c_str());
+        //printf("Test Hash   %s\n", hashGenesisBlock.ToString().c_str());
 
-        assert(hashGenesisBlock        == uint256("0x3d01967c2b30f8fe0864e2243a1bc42acbe6a575ccdf572a3d3a4f9d28d15231"));
-        //assert(hashGenesisBlock        == uint256("0x0000090e74eefe641e92e17fabf884fccef01bc30d3c9106dd88e28f159434d2"));
+        assert(hashGenesisBlock        == uint256("0x0000093615096ba153909558b443132feeb077419df0922cb5ed8ef993839e0e"));
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
@@ -289,7 +285,7 @@ public:
 		
         hashGenesisBlock = genesis.GetHash();
 
-        printf("Reg Hash   %s\n", hashGenesisBlock.ToString().c_str());
+        //printf("Reg Hash   %s\n", hashGenesisBlock.ToString().c_str());
         //assert(hashGenesisBlock == uint256("0x45bc75e6f085ce607ac39fe76d261b2e3d7ef19fe701e5061c5e7850c8b00533"));
 
         //vFixedSeeds.clear();
