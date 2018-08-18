@@ -54,23 +54,23 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-	(0, uint256("0x0000026bbe805b61a2dab88a79f32e589e7dc3de6ee053ed1dbafe0a4568ff26"));
+	(0, uint256("0x000001bd56d3caf0a808f56cd992ad820d07810ff0daa589a561470393a3979c"));
 ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1534560210, // * UNIX timestamp of last checkpoint block
+    1534561070, // * UNIX timestamp of last checkpoint block
     0,          // * total number of transactions between genesis and last checkpoint (the tx=... number in the SetBestChain debug.log lines)
     720         // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of
- 	(0, uint256("0x0000093615096ba153909558b443132feeb077419df0922cb5ed8ef993839e0e"));
+ 	(0, uint256("0x0000026bbe805b61a2dab88a79f32e589e7dc3de6ee053ed1dbafe0a4568ff26"));
 ;
 
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1534560319, // * UNIX timestamp of last checkpoint block
+    1534560210, // * UNIX timestamp of last checkpoint block
     0,          // * total number of transactions between genesis and last checkpoint (the tx=... number in the SetBestChain debug.log lines)
     720         // * estimated number of transactions per day after checkpoint
 };
@@ -133,22 +133,22 @@ public:
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig         = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue           = 0 * COIN;
+        txNew.vout[0].nValue           = 10 * COIN;
         txNew.vout[0].scriptPubKey     = CScript() << ParseHex("0483e3f08209f63c7634ed8f73edba2faa66abf6123578922c0a5f280f8348e4d16545e800ff3e2337ba90006112759f6c2b128e4c3a7bdd041fd925c12f4c3fa7") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock          = 0;
         genesis.hashMerkleRoot         = genesis.BuildMerkleTree();
         genesis.nVersion               = 1;
-        genesis.nTime                  = 1534560210;
+        genesis.nTime                  = 1534561070;
         genesis.nBits                  = 184759812;
-        genesis.nNonce                 = 517074;
+        genesis.nNonce                 = 567550;
 		
         hashGenesisBlock               = genesis.GetHash();
         //printf("Main Hash   %s\n", hashGenesisBlock.ToString().c_str());
         //printf("Main Merkle %s\n", genesis.hashMerkleRoot.ToString().c_str());
 		
-		assert(hashGenesisBlock        == uint256("0x0000026bbe805b61a2dab88a79f32e589e7dc3de6ee053ed1dbafe0a4568ff26"));
-		assert(genesis.hashMerkleRoot  == uint256("c10314dcf338db21791041f578fcd51f98f07369a27923f1cd355a3d93e96e46"));
+		assert(hashGenesisBlock        == uint256("0x000001bd56d3caf0a808f56cd992ad820d07810ff0daa589a561470393a3979c"));
+		assert(genesis.hashMerkleRoot  == uint256("83975702c3d22cd91ba5350f2b22f32dbc4fb6422c630d9061fbb9b17e3965a0"));
         
         //vFixedSeeds.clear();
         //vSeeds.clear();
@@ -211,13 +211,13 @@ public:
         nMaxMoneyOut                   = 250000000 * COIN;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime                  = 1534560319;
-        genesis.nNonce                 = 100640;
+        genesis.nTime                  = 1534561191;
+        genesis.nNonce                 = 643237;
 
         hashGenesisBlock               = genesis.GetHash();
         //printf("Test Hash   %s\n", hashGenesisBlock.ToString().c_str());
 
-        assert(hashGenesisBlock        == uint256("0x0000093615096ba153909558b443132feeb077419df0922cb5ed8ef993839e0e"));
+        assert(hashGenesisBlock        == uint256("0x00000e48d468bc672b846f4051131a73f33ab07f010bbc743e5b17999e863c79"));
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
