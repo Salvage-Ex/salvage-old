@@ -3759,8 +3759,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de SVG" admin@foo.com
         <translation>Los pares de la lista blanca no pueden ser excluidos por DoS y sus transacciones siempre se transmitirán, incluso si ya se encuentran en el grupo de memoria, útil e.g. para una pasarela</translation>
     </message>
     <message>
-        <source>(32323 could be used only on mainnet)</source>
-        <translation>(32323 sólo se puede usar en la red principal)</translation>
+        <source>(16999 could be used only on mainnet)</source>
+        <translation>(16999 sólo se puede usar en la red principal)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4177,8 +4177,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de SVG" admin@foo.com
         <translation>La clave prinvada del nodo maestro no es válida. Por favor, consulte la  documentación.</translation>
     </message>
     <message>
-        <source>(must be32323 for mainnet)</source>
-        <translation>(debe ser32323 para la red principal)</translation>
+        <source>(must be16999 for mainnet)</source>
+        <translation>(debe ser16999 para la red principal)</translation>
     </message>
     <message>
         <source>Can't find random Masternode.</source>

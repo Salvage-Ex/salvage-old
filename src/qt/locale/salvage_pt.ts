@@ -3654,8 +3654,8 @@ https://www.transifex.com/salvage-crypto/salvage-wallet-translations/</translati
         <translation>Aviso: Por favor verifique que a data e a hora do computador está correcta! Se o relógio estiver errado o Salvage Core não vai funcionar correctamente.</translation>
     </message>
     <message>
-        <source>(32323 could be used only on mainnet)</source>
-        <translation>(32323 apenas pode ser usado para mainnet)</translation>
+        <source>(16999 could be used only on mainnet)</source>
+        <translation>(16999 apenas pode ser usado para mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4064,8 +4064,8 @@ https://www.transifex.com/salvage-crypto/salvage-wallet-translations/</translati
         <translation>masternodeprivkey inválida. Por favor reveja a documentação.</translation>
     </message>
     <message>
-        <source>(must be32323 for mainnet)</source>
-        <translation>(deve ser32323 para mainnet)</translation>
+        <source>(must be16999 for mainnet)</source>
+        <translation>(deve ser16999 para mainnet)</translation>
     </message>
     <message>
         <source>Can't find random Masternode.</source>

@@ -3757,8 +3757,8 @@ zum Beispiel: alertnotify=echo %%s | mail -s \"SVG Alert\" admin@foo.com</transl
         <translation>Erlaubte Gegenstellen können nicht wegen DoS ausgeschlossen werden und ihre Transaktionen werden immer weitergeleitet, sogar wenn sie schon im Memory-Pool sind. Dies ist z.B. für Gateways nützlich.</translation>
     </message>
     <message>
-        <source>(32323 could be used only on mainnet)</source>
-        <translation>(32323 kann nur im Standardnetz benutzt werden)</translation>
+        <source>(16999 could be used only on mainnet)</source>
+        <translation>(16999 kann nur im Standardnetz benutzt werden)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4176,8 +4176,8 @@ Salvage Core wird heruntergefahren.</translation>
         <translation>Masternode-Geheimschlüssel (masternodeprivkey) ist ungültig. Siehe Dokumentation. </translation>
     </message>
     <message>
-        <source>(must be32323 for mainnet)</source>
-        <translation>(muss für Standardnetz32323 sein)</translation>
+        <source>(must be16999 for mainnet)</source>
+        <translation>(muss für Standardnetz16999 sein)</translation>
     </message>
     <message>
         <source>Can't find random Masternode.</source>

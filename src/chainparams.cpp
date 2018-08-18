@@ -54,7 +54,8 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
- 	(0, uint256("0x000003a08430a9bee468369b8b792f0ffeb62bf46e73ad2a64df7a1c983be487"));
+	(0, uint256("0xabc9f92f267fd8f688f28b339a0f19c323142d39cd12076ca0d83a7bc6052b5a"));
+// 	(0, uint256("0x000003a08430a9bee468369b8b792f0ffeb62bf46e73ad2a64df7a1c983be487"));
 ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
@@ -102,7 +103,7 @@ public:
         pchMessageStart[2]             = 0x57;
         pchMessageStart[3]             = 0x44;
         vAlertPubKey                   = ParseHex("042b57e084c4cbbb9a8a4795e1c0e2c895a8e31ca9c4e2c6deba83b53d4f729ee5d96c8513b2f5214b022e9a23606374af5f259477928ec44a51f53de67193730b");
-        nDefaultPort                   = 41400;
+        nDefaultPort                   = 16999;
         bnProofOfWorkLimit             = ~uint256(0) >> 20;
         nSubsidyHalvingInterval        = 999999;
         nMaxReorganizationDepth        = 100;
@@ -137,8 +138,13 @@ public:
         genesis.nNonce                 = 3342821;
 		
         hashGenesisBlock               = genesis.GetHash();
-        assert(hashGenesisBlock        == uint256("0x000003a08430a9bee468369b8b792f0ffeb62bf46e73ad2a64df7a1c983be487"));
-        assert(genesis.hashMerkleRoot  == uint256("64ed451c5b355c107345944240217409044c6e5283875ec72a981f358ecb6640"));
+        printf("Main Hash   %s\n", hashGenesisBlock.ToString().c_str());
+        printf("Main Merkle %s\n", genesis.hashMerkleRoot.ToString().c_str());
+		
+		assert(hashGenesisBlock        == uint256("0xabc9f92f267fd8f688f28b339a0f19c323142d39cd12076ca0d83a7bc6052b5a"));
+		assert(genesis.hashMerkleRoot  == uint256("ec32f08e74374ee7ca4338cac4960473068061ed6125517c416aab3db9abf99b"));
+        //assert(hashGenesisBlock        == uint256("0x000003a08430a9bee468369b8b792f0ffeb62bf46e73ad2a64df7a1c983be487"));
+        //assert(genesis.hashMerkleRoot  == uint256("64ed451c5b355c107345944240217409044c6e5283875ec72a981f358ecb6640"));
         
         //vFixedSeeds.clear();
         //vSeeds.clear();
@@ -195,7 +201,7 @@ public:
         pchMessageStart[2]             = 0x5A;
         pchMessageStart[3]             = 0x66;
         vAlertPubKey                   = ParseHex("04f56fa33b1d12a2323b85eaac7aadb2e2f0f8870202a41c5e94cab5e12fa0c3f20dd5ced3ab432ddc7c9a8082fda49d0f93a91dee1d98ccb3cbe94163a7876e97");
-        nDefaultPort                   = 42400;
+        nDefaultPort                   = 17999;
         nEnforceBlockUpgradeMajority   = 51;
         nRejectBlockOutdatedMajority   = 75;
         nToCheckBlockUpgradeMajority   = 100;
@@ -212,7 +218,10 @@ public:
         genesis.nNonce                 = 1496946;
 
         hashGenesisBlock               = genesis.GetHash();
-        assert(hashGenesisBlock        == uint256("0x0000090e74eefe641e92e17fabf884fccef01bc30d3c9106dd88e28f159434d2"));
+        printf("Test Hash   %s\n", hashGenesisBlock.ToString().c_str());
+
+        assert(hashGenesisBlock        == uint256("0x3d01967c2b30f8fe0864e2243a1bc42acbe6a575ccdf572a3d3a4f9d28d15231"));
+        //assert(hashGenesisBlock        == uint256("0x0000090e74eefe641e92e17fabf884fccef01bc30d3c9106dd88e28f159434d2"));
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
@@ -273,13 +282,15 @@ public:
         nTargetTimespan = 24 * 60 * 60;
         nTargetSpacing = 2 * 60; // 2 minute block time
         bnProofOfWorkLimit = ~uint256(0) >> 1;
+        nDefaultPort = 17555;
         genesis.nTime = 1528140682;
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 987655;
 		
         hashGenesisBlock = genesis.GetHash();
-        nDefaultPort = 43400;
-        assert(hashGenesisBlock == uint256("0x45bc75e6f085ce607ac39fe76d261b2e3d7ef19fe701e5061c5e7850c8b00533"));
+
+        printf("Reg Hash   %s\n", hashGenesisBlock.ToString().c_str());
+        //assert(hashGenesisBlock == uint256("0x45bc75e6f085ce607ac39fe76d261b2e3d7ef19fe701e5061c5e7850c8b00533"));
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
