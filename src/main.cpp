@@ -1622,7 +1622,7 @@ double ConvertBitsToDouble(unsigned int nBits)
 int64_t GetBlockValue(int nHeight)
 {
  
-	if (nHeight == 1) return 3219300 * COIN; //pre-min most will got to swaps
+	if (nHeight == 1) return 3219300 * COIN; //pre-min mostly will got to swaps
 	
 	int64_t nSubsidy;
 	

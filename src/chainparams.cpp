@@ -101,7 +101,7 @@ public:
         pchMessageStart[1]             = 0x4A;
         pchMessageStart[2]             = 0x57;
         pchMessageStart[3]             = 0x44;
-        vAlertPubKey                   = ParseHex("042b57e084c4cbbb9a8a4795e1c0e2c895a8e31ca9c4e2c6deba83b53d4f729ee5d96c8513b2f5214b022e9a23606374af5f259477928ec44a51f53de67193730b");
+        vAlertPubKey                   = ParseHex("04801fc7f9fb1dea0660fd5448a7e16feca056e762d2da6f64a0b7262a04ac76a5dedef072ae9daada2f2d3080bfcb3861b91b73ad6ceaf2c0ab1f87416f19252d");
         nDefaultPort                   = 16999;
         bnProofOfWorkLimit             = ~uint256(0) >> 20;
         nSubsidyHalvingInterval        = 999999;
@@ -128,27 +128,27 @@ public:
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3F)(0x46)(0x25)(0x3F).convert_to_container<std::vector<unsigned char> >(); // Start with 'SVGS'
         base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x92)(0xf0).convert_to_container<std::vector<unsigned char> >(); // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md 109 	0x8000006d
 
-        const char* pszTimestamp       = "Salvage Team 18 Aug 2018 we rules the world";
+        const char* pszTimestamp       = "Some trash is recycled, some is thrown away, some ends up where it shouldn't end up.";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig         = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue           = 10 * COIN;
+        txNew.vout[0].nValue           = 0 * COIN;
         txNew.vout[0].scriptPubKey     = CScript() << ParseHex("0483e3f08209f63c7634ed8f73edba2faa66abf6123578922c0a5f280f8348e4d16545e800ff3e2337ba90006112759f6c2b128e4c3a7bdd041fd925c12f4c3fa7") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock          = 0;
         genesis.hashMerkleRoot         = genesis.BuildMerkleTree();
         genesis.nVersion               = 1;
-        genesis.nTime                  = 1534561070;
-        genesis.nBits                  = 184759812;
-        genesis.nNonce                 = 567550;
+        genesis.nTime                  = 1535328000;
+        genesis.nBits                  = 504365040;
+        genesis.nNonce                 = 908404;
 		
         hashGenesisBlock               = genesis.GetHash();
-        //printf("Main Hash   %s\n", hashGenesisBlock.ToString().c_str());
+        // printf("Main Hash   %s\n", hashGenesisBlock.ToString().c_str());
         //printf("Main Merkle %s\n", genesis.hashMerkleRoot.ToString().c_str());
 		
-		assert(hashGenesisBlock        == uint256("0x000001bd56d3caf0a808f56cd992ad820d07810ff0daa589a561470393a3979c"));
-		assert(genesis.hashMerkleRoot  == uint256("83975702c3d22cd91ba5350f2b22f32dbc4fb6422c630d9061fbb9b17e3965a0"));
+		assert(hashGenesisBlock        == uint256("0x000003f6da55f94ffaea89aaab0756c596a7dd94820b57d9de2039d24b6e9928"));
+		assert(genesis.hashMerkleRoot  == uint256("827768506cc21bf011726794ec9a605829591df56847317bf7a3e458328ffc00"));
         
         //vFixedSeeds.clear();
         //vSeeds.clear();
@@ -157,6 +157,12 @@ public:
         vSeeds.push_back(CDNSSeedData("seed03.salvageproject.org", "seed03.salvageproject.org"));
         vSeeds.push_back(CDNSSeedData("seed04.salvageproject.org", "seed04.salvageproject.org"));
         vSeeds.push_back(CDNSSeedData("seed05.salvageproject.org", "seed05.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed06.salvageproject.org", "seed06.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed07.salvageproject.org", "seed07.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed08.salvageproject.org", "seed08.salvageproject.org"));
+        vSeeds.push_back(CDNSSeedData("seed09.salvageproject.org", "seed09.salvageproject.org"));
+
+
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
@@ -171,7 +177,7 @@ public:
         fHeadersFirstSyncingActive     = false;
 
         nPoolMaxTransactions           = 3;
-        strSporkKey                    = "04edc2fb6af45031b3e90ab75758db463181841ed14e190de37a2d13d6b8377cc09bb37a35f6080ef6b7dfd93c288ad44b90e4af06c5ac95c67405204ace41f1eb";
+        strSporkKey                    = "04323d68746d48c4360caa85b40fb8536c729d03c9c3dd8258dda0f5945a0eeaed8ec2bbdb8a8ddb84502763c0cf8c6bfb1838faa660a5d0ea066711d6038e0e2c";
         strDarksendPoolDummyAddress    = "NQM4tzZum4iLeK9gGHdPYW96ewcE6wFAyh";
         nStartMasternodePayments       = 1534550400; 	// Saturday, 18 August 2018 00:00:00  ** NOT USED **
     }
@@ -197,7 +203,7 @@ public:
         pchMessageStart[1]             = 0x61;
         pchMessageStart[2]             = 0x5A;
         pchMessageStart[3]             = 0x66;
-        vAlertPubKey                   = ParseHex("04f56fa33b1d12a2323b85eaac7aadb2e2f0f8870202a41c5e94cab5e12fa0c3f20dd5ced3ab432ddc7c9a8082fda49d0f93a91dee1d98ccb3cbe94163a7876e97");
+        vAlertPubKey                   = ParseHex("0464036395ef1dceec79404ca837b7ca46a586b6f676fbcd200ee61d3111a0d3a041181ee516ce402087daec9ff22bcf197420c9de1db500cbd18598bd2b40fb52");
         nDefaultPort                   = 17999;
         nEnforceBlockUpgradeMajority   = 51;
         nRejectBlockOutdatedMajority   = 75;
@@ -217,7 +223,7 @@ public:
         hashGenesisBlock               = genesis.GetHash();
         //printf("Test Hash   %s\n", hashGenesisBlock.ToString().c_str());
 
-        assert(hashGenesisBlock        == uint256("0x00000e48d468bc672b846f4051131a73f33ab07f010bbc743e5b17999e863c79"));
+        assert(hashGenesisBlock        == uint256("0x2582f5f944b9890a69bc6ab68674fddc982de0f64ab1d691e5adf001467ac48d"));
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
@@ -245,7 +251,7 @@ public:
         fTestnetToBeDeprecatedFieldRPC = true;
 
         nPoolMaxTransactions           = 2;
-        strSporkKey                    = "049e62470887f7060a8722853bf55aad08c1e891a4cc2d06f874b9ce0559af377d8c2431a5706b7cea887b74bf4d573d120f95c74ea874813cb84fcf1020fa6257";
+        strSporkKey                    = "047b28193ff31a5234504edfe29f5cf9cd3bc99e916a7bc694b954b7c997a8eca6254cc1a560174bcb23e0461aa552cc47437087d7ebab552ec9679a7823983fc9";
         strDarksendPoolDummyAddress    = "";
         nStartMasternodePayments       = 1534550400; 	// Saturday, 18 August 2018 00:00:00
     }
