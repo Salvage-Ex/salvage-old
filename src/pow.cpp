@@ -132,11 +132,20 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
 
     // Check range
     if (fNegative || bnTarget == 0 || fOverflow || bnTarget > Params().ProofOfWorkLimit())
+	{
+		LogPrintf("hash:   %08x  %s\n", hash.GetCompact(), hash.ToString());
+		LogPrintf("target: %08x  %s\n", bnTarget.GetCompact(), bnTarget.ToString());
+		LogPrintf("limit:  %08x  %s\n", Params().ProofOfWorkLimit().GetCompact(), Params().ProofOfWorkLimit().ToString());
         return error("CheckProofOfWork() : nBits below minimum work");
-
+	}
+	
     // Check proof of work matches claimed amount
     if (hash > bnTarget)
+	{
+		LogPrintf("hash:   %08x  %s\n", hash.GetCompact(), hash.ToString());
+		LogPrintf("target: %08x  %s\n", bnTarget.GetCompact(), bnTarget.ToString());
 		return error("CheckProofOfWork() : hash doesn't match nBits");
+	}
 	
     return true;
 }

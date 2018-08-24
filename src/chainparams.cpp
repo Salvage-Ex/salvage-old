@@ -54,23 +54,23 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-	(0, uint256("0x000001bd56d3caf0a808f56cd992ad820d07810ff0daa589a561470393a3979c"));
+	(0, uint256("0000049e70db758199bca1a530c68ea0162558b42abba1f60a60d0991ff60314"));
 ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1534561070, // * UNIX timestamp of last checkpoint block
+    1535069268, // * UNIX timestamp of last checkpoint block
     0,          // * total number of transactions between genesis and last checkpoint (the tx=... number in the SetBestChain debug.log lines)
     720         // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of
- 	(0, uint256("0x0000026bbe805b61a2dab88a79f32e589e7dc3de6ee053ed1dbafe0a4568ff26"));
+ 	(0, uint256("00000f52e502b6125d83ebd7fb8c8914e1b25f7801e65afbc8a5c6b3e252435d"));
 ;
 
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1534560210, // * UNIX timestamp of last checkpoint block
+    1535069405, // * UNIX timestamp of last checkpoint block
     0,          // * total number of transactions between genesis and last checkpoint (the tx=... number in the SetBestChain debug.log lines)
     720         // * estimated number of transactions per day after checkpoint
 };
@@ -139,15 +139,15 @@ public:
         genesis.hashPrevBlock          = 0;
         genesis.hashMerkleRoot         = genesis.BuildMerkleTree();
         genesis.nVersion               = 1;
-        genesis.nTime                  = 1535328000;
-        genesis.nBits                  = 504365040;
-        genesis.nNonce                 = 908404;
+        genesis.nTime                  = 1535069268;
+        genesis.nBits                  = 504365055;
+        genesis.nNonce                 = 3271076;
 		
         hashGenesisBlock               = genesis.GetHash();
         // printf("Main Hash   %s\n", hashGenesisBlock.ToString().c_str());
         //printf("Main Merkle %s\n", genesis.hashMerkleRoot.ToString().c_str());
 		
-		assert(hashGenesisBlock        == uint256("0x000003f6da55f94ffaea89aaab0756c596a7dd94820b57d9de2039d24b6e9928"));
+		assert(hashGenesisBlock        == uint256("0000049e70db758199bca1a530c68ea0162558b42abba1f60a60d0991ff60314"));
 		assert(genesis.hashMerkleRoot  == uint256("827768506cc21bf011726794ec9a605829591df56847317bf7a3e458328ffc00"));
         
         //vFixedSeeds.clear();
@@ -217,13 +217,13 @@ public:
         nMaxMoneyOut                   = 250000000 * COIN;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime                  = 1534561191;
-        genesis.nNonce                 = 643237;
+        genesis.nTime                  = 1535069405;
+        genesis.nNonce                 = 173831;
 
         hashGenesisBlock               = genesis.GetHash();
         //printf("Test Hash   %s\n", hashGenesisBlock.ToString().c_str());
 
-        assert(hashGenesisBlock        == uint256("0x2582f5f944b9890a69bc6ab68674fddc982de0f64ab1d691e5adf001467ac48d"));
+        assert(hashGenesisBlock        == uint256("00000f52e502b6125d83ebd7fb8c8914e1b25f7801e65afbc8a5c6b3e252435d"));
 
         //vFixedSeeds.clear();
         //vSeeds.clear();
