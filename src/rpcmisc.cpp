@@ -121,8 +121,8 @@ Value mnsync(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "mnsync [status|reset]\n"
-            "Returns the sync status or resets sync.\n");
+            "mnsync [status|reset|next]\n"
+            "Returns the sync status or resets sync or switch to next asset.\n");
 
     std::string strMode = params[0].get_str();
 
@@ -145,9 +145,15 @@ Value mnsync(const Array& params, bool fHelp)
         obj.push_back(Pair("countBudgetItemFin", masternodeSync.countBudgetItemFin));
         obj.push_back(Pair("RequestedMasternodeAssets", masternodeSync.RequestedMasternodeAssets));
         obj.push_back(Pair("RequestedMasternodeAttempt", masternodeSync.RequestedMasternodeAttempt));
-
+        obj.push_back(Pair("Status", masternodeSync.GetSyncStatus()));
 
         return obj;
+    }
+
+    if(strMode == "next")
+    {
+        masternodeSync.GetNextAsset();
+        return "sync switched to " + masternodeSync.GetSyncStatus();
     }
 
     if (strMode == "reset") {

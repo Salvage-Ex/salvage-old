@@ -449,7 +449,7 @@ bool fGenerateBitcoins = false;
 
 void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
 {
-    LogPrintf("SVGMiner started\n");
+    LogPrintf("SVGMiner started (PoS=%s)\n",(fProofOfStake ? "true" : "false"));
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("salvage-miner");
 
@@ -473,17 +473,20 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
                 MilliSleep(5000);
                 continue;
             }
-			
-			bool test = false;
-			if(test){
-			if(chainActive.Tip()->nTime < 1471482000) LogPrintf("Point470 \n");
-			if(vNodes.empty()) LogPrintf("Point471 \n");
-			if(pwallet->IsLocked()) LogPrintf("Point472 \n");
-			if(!fMintableCoins) LogPrintf("Point473 \n");
-			if(nReserveBalance >= pwallet->GetBalance()) LogPrintf("Point474 \n");
-			if(!masternodeSync.IsSynced()) LogPrintf("Point475 \n");
-			if(!fGenerateBitcoins && !fProofOfStake) LogPrintf("Point476 \n");
-			}
+
+            bool test = false;
+
+            if(test)
+            {
+               if(chainActive.Tip()->nTime < 1471482000)    LogPrintf("Point470 \n");
+               if(vNodes.empty())                           LogPrintf("Point471 \n");
+               if(pwallet->IsLocked())                      LogPrintf("Point472 \n");
+               if(!fMintableCoins)                          LogPrintf("Point473 \n");
+               if(nReserveBalance >= pwallet->GetBalance()) LogPrintf("Point474 \n");
+               if(!masternodeSync.IsSynced())               LogPrintf("Point475 \n");
+               if(!fGenerateBitcoins && !fProofOfStake)     LogPrintf("Point476 \n");
+            }
+
             while (chainActive.Tip()->nTime < 1471482000 || vNodes.empty() || pwallet->IsLocked() || !fMintableCoins || nReserveBalance >= pwallet->GetBalance() || !masternodeSync.IsSynced()) {
                 nLastCoinStakeSearchInterval = 0;
                 MilliSleep(5000);
@@ -498,6 +501,11 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
                     MilliSleep(5000);
                     continue;
                 }
+            }
+        } else {
+            if (chainActive.Tip()->nHeight >= Params().LAST_POW_BLOCK()) {
+               LogPrintf("SVGMiner: POW Ended\n");
+               break;
             }
         }
 
