@@ -1573,7 +1573,7 @@ bool CWallet::SelectStakeCoins(std::set<std::pair<const CWalletTx*, unsigned int
             continue;
 
         //check for min age
-        if (GetTime() - out.tx->GetTxTime() < nStakeMinAge)
+        if (GetTime() - out.tx->GetTxTime() < StakeMinAge())
             continue;
 
         //check that it is matured
@@ -1599,7 +1599,7 @@ bool CWallet::MintableCoins()
     AvailableCoins(vCoins, true);
 
     BOOST_FOREACH (const COutput& out, vCoins) {
-        if (GetTime() - out.tx->GetTxTime() > nStakeMinAge)
+        if (GetTime() - out.tx->GetTxTime() > StakeMinAge())
             return true;
     }
 

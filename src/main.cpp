@@ -949,6 +949,8 @@ bool GetCoinAge(const CTransaction& tx, const unsigned int nTxTime, uint64_t& nC
         // Read block header
         CBlockHeader prevblock = pindex->GetBlockHeader();
 
+        LogPrintf("Setting StakeMinAge as %d \n", StakeMinAge());
+
         if (prevblock.nTime + StakeMinAge() > nTxTime)
             continue; // only count coins meeting min age requirement
 
@@ -5449,10 +5451,13 @@ int ActiveCollateral()
 int StakeMinAge()
 {
     if( Params().NetworkID() == CBaseChainParams::TESTNET) {
+        //LogPrintf("Testnet min stake age is: %d\n", nStakeMinAgeTestNet);
         return nStakeMinAgeTestNet;
     }
 
+    //LogPrintf("Mainnet min stake age is: %d\n", nStakeMinAge);
     return nStakeMinAge;
+
 
 }
 
