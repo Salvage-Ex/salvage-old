@@ -206,6 +206,8 @@ void UnloadBlockIndex();
 int ActiveProtocol();
 /** Return the active collateral amount */
 int ActiveCollateral();
+/**Return the MinStakeAge for main or testnet**/
+int StakeMinAge();
 /** Process protocol messages received from a given node */
 bool ProcessMessages(CNode* pfrom);
 /**

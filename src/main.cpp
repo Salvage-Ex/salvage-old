@@ -70,7 +70,9 @@ bool fCheckBlockIndex = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
 
-unsigned int nStakeMinAge = 2 * 60 * 60;  //12hours
+unsigned int nStakeMinAge = 12 * 60 * 60;  //12hours Mainnet
+unsigned int nStakeMinAgeTestNet = 2 * 60 * 60; //2hours Testnet
+
 int64_t nReserveBalance = 0;
 
 /** Fees smaller than this (in duffs) are considered zero fee (for relaying and mining)
@@ -947,7 +949,7 @@ bool GetCoinAge(const CTransaction& tx, const unsigned int nTxTime, uint64_t& nC
         // Read block header
         CBlockHeader prevblock = pindex->GetBlockHeader();
 
-        if (prevblock.nTime + nStakeMinAge > nTxTime)
+        if (prevblock.nTime + StakeMinAge() > nTxTime)
             continue; // only count coins meeting min age requirement
 
         if (nTxTime < prevblock.nTime) {
@@ -5442,6 +5444,16 @@ int ActiveCollateral()
         } else { //if( nHeight > 657000)
             return nMinCollat * 32; //40k
         }
+}
+
+int StakeMinAge()
+{
+    if( Params().NetworkID() == CBaseChainParams::TESTNET) {
+        return nStakeMinAgeTestNet;
+    }
+
+    return nStakeMinAge;
+
 }
 
 
