@@ -141,15 +141,19 @@ void CMasternodeSync::GetNextAsset()
     case (MASTERNODE_SYNC_INITIAL):
     case (MASTERNODE_SYNC_FAILED): // should never be used here actually, use Reset() instead
         ClearFulfilledRequest();
+        LogPrintf("CMasternodeSync::GetNextAsset - Sporks\n");
         RequestedMasternodeAssets = MASTERNODE_SYNC_SPORKS;
         break;
     case (MASTERNODE_SYNC_SPORKS):
+        LogPrintf("CMasternodeSync::GetNextAsset - Masternode List\n");
         RequestedMasternodeAssets = MASTERNODE_SYNC_LIST;
         break;
     case (MASTERNODE_SYNC_LIST):
+        LogPrintf("CMasternodeSync::GetNextAsset - Masternode Winners\n");
         RequestedMasternodeAssets = MASTERNODE_SYNC_MNW;
         break;
     case (MASTERNODE_SYNC_MNW):
+        LogPrintf("CMasternodeSync::GetNextAsset - Masternode Budget\n");
         RequestedMasternodeAssets = MASTERNODE_SYNC_BUDGET;
         break;
     case (MASTERNODE_SYNC_BUDGET):
@@ -225,7 +229,7 @@ void CMasternodeSync::ClearFulfilledRequest()
     if (!lockRecv) return;
 
     BOOST_FOREACH (CNode* pnode, vNodes) {
-        pnode->ClearFulfilledRequest("getspork");
+        pnode->ClearFulfilledRequest("getsporks");
         pnode->ClearFulfilledRequest("mnsync");
         pnode->ClearFulfilledRequest("mnwsync");
         pnode->ClearFulfilledRequest("busync");
@@ -286,8 +290,8 @@ void CMasternodeSync::Process()
 
         //set to synced
         if (RequestedMasternodeAssets == MASTERNODE_SYNC_SPORKS) {
-            if (pnode->HasFulfilledRequest("getspork")) continue;
-            pnode->FulfilledRequest("getspork");
+            if (pnode->HasFulfilledRequest("getsporks")) continue;
+            pnode->FulfilledRequest("getsporks");
 
             pnode->PushMessage("getsporks"); //get current network sporks
             if (RequestedMasternodeAttempt >= 2) GetNextAsset();
