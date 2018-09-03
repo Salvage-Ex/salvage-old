@@ -35,6 +35,7 @@ public:
     std::map<uint256, int> mapSeenSyncMNW;
     std::map<uint256, int> mapSeenSyncBudget;
 
+    int64_t lastSporks;
     int64_t lastMasternodeList;
     int64_t lastMasternodeWinner;
     int64_t lastBudgetItem;
