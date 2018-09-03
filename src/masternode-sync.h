@@ -43,11 +43,13 @@ public:
     int nCountFailures;
 
     // sum of all counts
+    int sumSporks;
     int sumMasternodeList;
     int sumMasternodeWinner;
     int sumBudgetItemProp;
     int sumBudgetItemFin;
     // peers that reported counts
+    int countSporks;
     int countMasternodeList;
     int countMasternodeWinner;
     int countBudgetItemProp;
