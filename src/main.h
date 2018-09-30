@@ -242,6 +242,12 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 bool ActivateBestChain(CValidationState& state, CBlock* pblock = NULL);
 CAmount GetBlockValue(int nHeight);
 
+//Treasury blocks start from 2000 (1000 blocks after last POW) and then each 5040 (once a week)
+static const int nStartTreasuryBlock = 2000;
+static const int nTreasuryBlockStep  = 5040; //1 week @ 2 min blocks 
+bool IsTreasuryBlock(int nHeight);
+CAmount GetTreasuryAward(int nHeight);
+
 /** Create a new block index entry for a given block hash */
 CBlockIndex* InsertBlockIndex(uint256 hash);
 /** Abort with a message */

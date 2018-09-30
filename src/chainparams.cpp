@@ -82,7 +82,23 @@ static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
     0,
     0,
-    0};
+    0
+};
+
+std::string CChainParams::GetTreasuryRewardAddressAtHeight(int nHeight) const 
+{
+    return vTreasuryRewardAddress;
+}
+
+CScript CChainParams::GetTreasuryRewardScriptAtHeight(int nHeight) const 
+{
+    CBitcoinAddress address(GetTreasuryRewardAddressAtHeight(nHeight).c_str());
+    assert(address.IsValid());
+
+    CScript script = GetScriptForDestination(address.Get());
+    return script;
+}
+
 
 class CMainParams : public CChainParams
 {

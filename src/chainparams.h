@@ -98,6 +98,12 @@ public:
     CBaseChainParams::Network NetworkID() const { return networkID; }
     int MinCollateral() const { return nMinCollateral; }
 
+    std::string vTreasuryRewardAddress;
+
+    std::string GetTreasuryRewardAddressAtHeight(int height) const;
+    CScript GetTreasuryRewardScriptAtHeight(int height) const;
+    
+
 protected:
     CChainParams() {}
 

@@ -246,14 +246,45 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
         }
     }
 
-    //check for masternode payee
-    if (masternodePayments.IsTransactionValid(txNew, nBlockHeight))
+     //check if it's valid treasury block
+    if( IsTreasuryBlock(nBlockHeight) ) 
+    {
+        CScript treasuryPayee = Params().GetTreasuryRewardScriptAtHeight(nBlockHeight);
+        CAmount treasuryAmount = GetTreasuryAward(nBlockHeight);
+        
+        bool bFound = false;
+        
+        BOOST_FOREACH (CTxOut out, txNew.vout) 
+        {
+            if(out.nValue == treasuryAmount) {
+                bFound = true;  //correct treasury payment has been found
+                break;
+            }
+        }
+        
+        if(!bFound) 
+        {
+            LogPrint("masternode","Invalid treasury payment detected %s\n", txNew.ToString().c_str());
+            
+            //Decide if Want to tie this to sport 17
+            if(IsSporkActive(SPORK_17_TREASURY_PAYMENT_ENFORCEMENT))
+                return false;
+            
+            LogPrint("masternode","SPORK_17_TREASURY_PAYMENT_ENFORCEMENT is not enabled, accept anyway\n");
+        } else {
+            LogPrint("masternode","Valid treasury payment detected %s\n", txNew.ToString().c_str());
+        }
+        
+    } else {
+        //check for masternode payee
+        if (masternodePayments.IsTransactionValid(txNew, nBlockHeight))
         return true;
-    LogPrintf("Invalid mn payment detected %s\n", txNew.ToString().c_str());
+        LogPrintf("Invalid mn payment detected %s\n", txNew.ToString().c_str());
 
-    if (IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT))
-        return false;
-    LogPrintf("Masternode payment enforcement is disabled, accepting block\n");
+        if (IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT))
+          return false;
+        LogPrintf("Masternode payment enforcement is disabled, accepting block\n");
+    }
 
     return true;
 }
