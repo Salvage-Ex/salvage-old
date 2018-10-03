@@ -11,6 +11,8 @@
 #include "random.h"
 #include "util.h"
 #include "utilstrencodings.h"
+#include "net.h"
+#include "base58.h"
 
 #include <assert.h>
 #include <boost/assign/list_of.hpp>
@@ -195,6 +197,7 @@ public:
         nPoolMaxTransactions           = 3;
         strSporkKey                    = "04323d68746d48c4360caa85b40fb8536c729d03c9c3dd8258dda0f5945a0eeaed8ec2bbdb8a8ddb84502763c0cf8c6bfb1838faa660a5d0ea066711d6038e0e2c";
         strDarksendPoolDummyAddress    = "sejss9knA6c3EATnuraxmZvWBfUYkw2cqW";
+        vTreasuryRewardAddress         = "sKAMf1RnneH77NHYYzzqWTgTmjKMXkxu5y";
         nStartMasternodePayments       = 1534550400; 	// Saturday, 18 August 2018 00:00:00  ** NOT USED **
     }
 
@@ -269,6 +272,7 @@ public:
         nPoolMaxTransactions           = 2;
         strSporkKey                    = "047b28193ff31a5234504edfe29f5cf9cd3bc99e916a7bc694b954b7c997a8eca6254cc1a560174bcb23e0461aa552cc47437087d7ebab552ec9679a7823983fc9";
         strDarksendPoolDummyAddress    = "sMPC3oo2a3L8z63LAmPJtqmX4SwJ3tMt5a";
+        vTreasuryRewardAddress         = "sKAMf1RnneH77NHYYzzqWTgTmjKMXkxu5y";
         nStartMasternodePayments       = 1534550400; 	// Saturday, 18 August 2018 00:00:00
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
