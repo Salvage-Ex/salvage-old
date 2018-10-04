@@ -278,7 +278,7 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
     } else {
         //check for masternode payee
         if (masternodePayments.IsTransactionValid(txNew, nBlockHeight))
-        return true;
+            return true;
         LogPrintf("Invalid mn payment detected %s\n", txNew.ToString().c_str());
 
         if (IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT))
@@ -298,7 +298,13 @@ void FillBlockPayee(CMutableTransaction& txNew, int64_t nFees, bool fProofOfStak
     if (IsSporkActive(SPORK_13_ENABLE_SUPERBLOCKS) && budget.IsBudgetPaymentBlock(pindexPrev->nHeight + 1)) {
         budget.FillBlockPayee(txNew, nFees, fProofOfStake);
     } else {
-        masternodePayments.FillBlockPayee(txNew, nFees, fProofOfStake);
+        if( IsTreasuryBlock(pindexPrev->nHeight) ) 
+        {
+            //LogPrintf("FillBlockPayee(): It's time for treasury payment! Block %d\n",pindexPrev->nHeight + 1);
+             budget.FillTreasuryBlockPayee(txNew, nFees, fProofOfStake);
+        } else {
+                masternodePayments.FillBlockPayee(txNew, nFees, fProofOfStake);
+        }
     }
 }
 
