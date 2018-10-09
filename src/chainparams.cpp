@@ -272,7 +272,7 @@ public:
         nPoolMaxTransactions           = 2;
         strSporkKey                    = "047b28193ff31a5234504edfe29f5cf9cd3bc99e916a7bc694b954b7c997a8eca6254cc1a560174bcb23e0461aa552cc47437087d7ebab552ec9679a7823983fc9";
         strDarksendPoolDummyAddress    = "sMPC3oo2a3L8z63LAmPJtqmX4SwJ3tMt5a";
-        vTreasuryRewardAddress         = "sKAMf1RnneH77NHYYzzqWTgTmjKMXkxu5y";
+        vTreasuryRewardAddress         = "sNsjXUB9xStXLrL3F1r2TKUURjvvFSeKV3";
         nStartMasternodePayments       = 1534550400; 	// Saturday, 18 August 2018 00:00:00
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
