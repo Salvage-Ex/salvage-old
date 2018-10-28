@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers 
+// Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The Salvage developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -68,13 +68,13 @@ public:
         QRect boundingRect;
         painter->drawText(addressRect, Qt::AlignLeft | Qt::AlignVCenter, address, &boundingRect);
 
-		
+
         if (index.data(TransactionTableModel::WatchonlyRole).toBool()) {
             QIcon iconWatchonly = qvariant_cast<QIcon>(index.data(TransactionTableModel::WatchonlyDecorationRole));
             QRect watchonlyRect(boundingRect.right() + 5, mainRect.top() + ypad + halfheight, 16, halfheight);
             iconWatchonly.paint(painter, watchonlyRect);
         }
-		
+
 
         if (amount < 0) {
             foreground = COLOR_NEGATIVE;
@@ -177,7 +177,7 @@ void Coinmix::setBalance(const CAmount& balance, const CAmount& unconfirmedBalan
     currentWatchUnconfBalance = watchUnconfBalance;
     currentWatchImmatureBalance = watchImmatureBalance;
 
-/*	
+/*
     ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance - immatureBalance, false, BitcoinUnits::separatorAlways));
     ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
     ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));
@@ -189,7 +189,7 @@ void Coinmix::setBalance(const CAmount& balance, const CAmount& unconfirmedBalan
     ui->labelWatchPending->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchUnconfBalance, false, BitcoinUnits::separatorAlways));
     ui->labelWatchImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchImmatureBalance, false, BitcoinUnits::separatorAlways));
     ui->labelWatchTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchOnlyBalance + watchUnconfBalance + watchImmatureBalance, false, BitcoinUnits::separatorAlways));
- 
+
     // only show immature (newly mined) balance if it's non-zero, so as not to complicate things
     // for the non-mining users
     bool showImmature = immatureBalance != 0;
@@ -261,9 +261,9 @@ void Coinmix::setWalletModel(WalletModel* model)
        // ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
 
         // Keep up to date with wallet
-       /* setBalance(model->getBalance(), model->getUnconfirmedBalance(), model->getImmatureBalance(), model->getAnonymizedBalance(),
+        setBalance(model->getBalance(), model->getUnconfirmedBalance(), model->getImmatureBalance(), model->getAnonymizedBalance(),
             model->getWatchBalance(), model->getWatchUnconfirmedBalance(), model->getWatchImmatureBalance());
-		*/
+
         //connect(model, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this, SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
 
         //connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
@@ -284,7 +284,7 @@ void Coinmix::updateDisplayUnit()
 {
     if (walletModel && walletModel->getOptionsModel()) {
         nDisplayUnit = walletModel->getOptionsModel()->getDisplayUnit();
-        
+
 		if (currentBalance != -1)
             setBalance(currentBalance, currentUnconfirmedBalance, currentImmatureBalance, currentAnonymizedBalance,
                 currentWatchOnlyBalance, currentWatchUnconfBalance, currentWatchImmatureBalance);
@@ -293,7 +293,7 @@ void Coinmix::updateDisplayUnit()
         txdelegate->unit = nDisplayUnit;
 
         ui->listTransactions->update();
-		
+
     }
 }
 */
@@ -537,7 +537,7 @@ void Coinmix::toggleDarksend()
     } else {
         ui->toggleDarksend->setText(tr("Stop Darksend"));
 
-        //show Darksend configuration if client has defaults set 
+        //show Darksend configuration if client has defaults set
 
         if (nAnonymizeSVGAmount == 0) {
             DarksendConfig dlg(this);
