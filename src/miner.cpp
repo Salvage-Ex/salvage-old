@@ -476,6 +476,7 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
 
             bool test = false;
 
+        
             if(test)
             {
                if(chainActive.Tip()->nTime < 1471482000)    LogPrintf("Point470 \n");
@@ -508,6 +509,8 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
                break;
             }
         }
+
+        MilliSleep(1000);
 
         //
         // Create new block
