@@ -39,14 +39,17 @@ public:
     int64_t lastMasternodeWinner;
     int64_t lastBudgetItem;
     int64_t lastFailure;
+    int64_t lastSporks;
     int nCountFailures;
 
     // sum of all counts
+    int sumSporks;
     int sumMasternodeList;
     int sumMasternodeWinner;
     int sumBudgetItemProp;
     int sumBudgetItemFin;
     // peers that reported counts
+    int countSporks;
     int countMasternodeList;
     int countMasternodeWinner;
     int countBudgetItemProp;

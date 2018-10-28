@@ -64,10 +64,13 @@ void ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
     if (strCommand == "getsporks") {
         std::map<int, CSporkMessage>::iterator it = mapSporksActive.begin();
 
+        int nInvCount = 0;
         while (it != mapSporksActive.end()) {
             pfrom->PushMessage("spork", it->second);
             it++;
+            nInvCount++;
         }
+        pfrom->PushMessage("ssc", MASTERNODE_SYNC_SPORKS, nInvCount); 
     }
 }
 

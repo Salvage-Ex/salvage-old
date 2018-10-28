@@ -67,6 +67,7 @@ void CMasternodeSync::Reset()
     lastMasternodeList = 0;
     lastMasternodeWinner = 0;
     lastBudgetItem = 0;
+    lastSporks = 0;
     mapSeenSyncMNB.clear();
     mapSeenSyncMNW.clear();
     mapSeenSyncBudget.clear();
@@ -76,10 +77,12 @@ void CMasternodeSync::Reset()
     sumMasternodeWinner = 0;
     sumBudgetItemProp = 0;
     sumBudgetItemFin = 0;
+    sumSporks = 0;
     countMasternodeList = 0;
     countMasternodeWinner = 0;
     countBudgetItemProp = 0;
     countBudgetItemFin = 0;
+    countSporks = 0;
     RequestedMasternodeAssets = MASTERNODE_SYNC_INITIAL;
     RequestedMasternodeAttempt = 0;
     nAssetSyncStarted = GetTime();
@@ -141,15 +144,19 @@ void CMasternodeSync::GetNextAsset()
     case (MASTERNODE_SYNC_INITIAL):
     case (MASTERNODE_SYNC_FAILED): // should never be used here actually, use Reset() instead
         ClearFulfilledRequest();
+        LogPrintf("CMasternodeSync::GetNextAsset - Sporks\n"); 
         RequestedMasternodeAssets = MASTERNODE_SYNC_SPORKS;
         break;
     case (MASTERNODE_SYNC_SPORKS):
+        LogPrintf("CMasternodeSync::GetNextAsset - Masternode List\n"); 
         RequestedMasternodeAssets = MASTERNODE_SYNC_LIST;
         break;
     case (MASTERNODE_SYNC_LIST):
+        LogPrintf("CMasternodeSync::GetNextAsset - Masternode Winners\n"); 
         RequestedMasternodeAssets = MASTERNODE_SYNC_MNW;
         break;
     case (MASTERNODE_SYNC_MNW):
+        LogPrintf("CMasternodeSync::GetNextAsset - Masternode Budget\n"); 
         RequestedMasternodeAssets = MASTERNODE_SYNC_BUDGET;
         break;
     case (MASTERNODE_SYNC_BUDGET):
@@ -193,6 +200,12 @@ void CMasternodeSync::ProcessMessage(CNode* pfrom, std::string& strCommand, CDat
 
         //this means we will receive no further communication
         switch (nItemID) {
+        case (MASTERNODE_SYNC_SPORKS):
+            if (nItemID != RequestedMasternodeAssets) return;
+            sumSporks += nCount;
+            countSporks++;
+            lastSporks = GetTime();
+            break;
         case (MASTERNODE_SYNC_LIST):
             if (nItemID != RequestedMasternodeAssets) return;
             sumMasternodeList += nCount;
@@ -225,7 +238,7 @@ void CMasternodeSync::ClearFulfilledRequest()
     if (!lockRecv) return;
 
     BOOST_FOREACH (CNode* pnode, vNodes) {
-        pnode->ClearFulfilledRequest("getspork");
+        pnode->ClearFulfilledRequest("getsporks"); 
         pnode->ClearFulfilledRequest("mnsync");
         pnode->ClearFulfilledRequest("mnwsync");
         pnode->ClearFulfilledRequest("busync");
@@ -255,7 +268,7 @@ void CMasternodeSync::Process()
         return;
     }
 
-    /*if (fDebug)*/ LogPrintf("CMasternodeSync::Process() - tick %d RequestedMasternodeAssets %d\n", tick, RequestedMasternodeAssets);
+    if (fDebug) LogPrintf("CMasternodeSync::Process() - tick %d RequestedMasternodeAssets %d\n", tick, RequestedMasternodeAssets);
 
     if (RequestedMasternodeAssets == MASTERNODE_SYNC_INITIAL) GetNextAsset();
 
@@ -286,19 +299,34 @@ void CMasternodeSync::Process()
 
         //set to synced
         if (RequestedMasternodeAssets == MASTERNODE_SYNC_SPORKS) {
-            if (pnode->HasFulfilledRequest("getspork")) continue;
-            pnode->FulfilledRequest("getspork");
+            if (fDebug) LogPrintf("CMasternodeSync::Process() - lastSporks %lld (GetTime() - MASTERNODE_SYNC_TIMEOUT) %lld\n", lastSporks, GetTime() - MASTERNODE_SYNC_TIMEOUT * 6);
+            
+            //hasn't received a new item in the last five seconds, so we'll move to the item in the sync.
+            if (lastSporks > 0 && lastSporks + MASTERNODE_SYNC_TIMEOUT * 6 > GetTime() && RequestedMasternodeAttempt >= MASTERNODE_SYNC_THRESHOLD) {
+                GetNextAsset();
+                return;
+            }
+
+             if (lastSporks == 0 && (RequestedMasternodeAttempt >= MASTERNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > MASTERNODE_SYNC_TIMEOUT * 5)) {
+                // maybe there is no sporks at all, so just finish syncing
+                GetNextAsset();
+                return;
+            }
+
+            if (pnode->HasFulfilledRequest("getsporks")) continue;
+                pnode->FulfilledRequest("getsporks");
 
             pnode->PushMessage("getsporks"); //get current network sporks
             if (RequestedMasternodeAttempt >= 2) GetNextAsset();
             RequestedMasternodeAttempt++;
-
+            lastSporks = GetTime();
             return;
         }
 
         if (pnode->nVersion >= masternodePayments.GetMinMasternodePaymentsProto()) {
             if (RequestedMasternodeAssets == MASTERNODE_SYNC_LIST) {
-                if (fDebug) LogPrintf("CMasternodeSync::Process() - lastMasternodeList %lld (GetTime() - MASTERNODE_SYNC_TIMEOUT) %lld\n", lastMasternodeList, GetTime() - MASTERNODE_SYNC_TIMEOUT);
+                if (fDebug) LogPrintf("CMasternodeSync::Process() - lastMasternodeList %lld (GetTime() - MASTERNODE_SYNC_TIMEOUT) %lld\n", lastMasternodeList, GetTime() - MASTERNODE_SYNC_TIMEOUT * 2);
+                
                 if (lastMasternodeList > 0 && lastMasternodeList < GetTime() - MASTERNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= MASTERNODE_SYNC_THRESHOLD) { //hasn't received a new item in the last five seconds, so we'll move to the
                     GetNextAsset();
                     return;
