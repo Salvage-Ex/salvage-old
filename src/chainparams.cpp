@@ -199,6 +199,7 @@ public:
         strDarksendPoolDummyAddress    = "sejss9knA6c3EATnuraxmZvWBfUYkw2cqW";
         vTreasuryRewardAddress         = "sKAMf1RnneH77NHYYzzqWTgTmjKMXkxu5y";
         nStartMasternodePayments       = 1534550400; 	// Saturday, 18 August 2018 00:00:00  ** NOT USED **
+        nTreasuryBlockStep             = 5000; //Just about every week
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const
@@ -234,6 +235,7 @@ public:
         nMaturity                      = 15;
         nModifierUpdateBlock           = 51197; //approx Mon, 30 Apr 2018 04:00:00 GMT
         nMaxMoneyOut                   = 250000000 * COIN;
+        nTreasuryBlockStep             = 200; //Just about every 6-7 hours.
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime                  = 1535069405;

@@ -102,6 +102,8 @@ public:
 
     std::string GetTreasuryRewardAddressAtHeight(int height) const;
     CScript GetTreasuryRewardScriptAtHeight(int height) const;
+    int TreasuryBlockStep() const { return nTreasuryBlockStep; }
+
     
 
 protected:
@@ -148,6 +150,7 @@ protected:
     std::string strDarksendPoolDummyAddress;
     int64_t nStartMasternodePayments;
     int nMinCollateral;
+    int nTreasuryBlockStep;
 };
 
 /** 

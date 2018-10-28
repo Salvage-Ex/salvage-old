@@ -1692,7 +1692,7 @@ bool IsTreasuryBlock(int nHeight)
     if(nHeight < nStartTreasuryBlock)
         return false;
     else 
-        if( (nHeight-nStartTreasuryBlock) % nTreasuryBlockStep == 0)
+        if( (nHeight-nStartTreasuryBlock) % Params().TreasuryBlockStep() == 0)
             return true;
         else
             return false;
@@ -5489,7 +5489,6 @@ int StakeMinAge()
 
 
 }
-
 
 // requires LOCK(cs_vRecvMsg)
 bool ProcessMessages(CNode* pfrom)
