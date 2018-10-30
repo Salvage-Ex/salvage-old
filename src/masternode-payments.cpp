@@ -193,6 +193,15 @@ bool IsBlockValueValid(const CBlock& block, int64_t nExpectedValue, CAmount nMin
         LogPrintf("IsBlockValueValid() : WARNING: Couldn't find previous block\n");
     }
 
+    if (IsTreasuryBlock(nHeight)){
+    
+        return true;
+    /*
+    }else{
+        LogPrintf(" Block: %d WARNING: Treasury Block does match!\n",nHeight);
+        LogPrintf(" Expected Value is: %d\n Block value is: %d\n ",nExpectedValue,GetBlockValue(nHeight));
+    }*/
+
     if (!masternodeSync.IsSynced()) { //there is no budget data to use to check anything
         //super blocks will always be on these blocks, max 100 per budgeting
         if (nHeight % GetBudgetPaymentCycleBlocks() < 100) {

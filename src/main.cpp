@@ -1631,7 +1631,7 @@ int64_t GetBlockValue(int nHeight)
 	int64_t nSubsidy;
 	
 
-    if( IsTreasuryBlock(nHeight) ) 
+    if( IsTreasuryBlock(nHeight)-1 ) 
     {
         LogPrintf("GetBlockValue(): this is a treasury block\n");
         nSubsidy = GetTreasuryAward(nHeight);
@@ -1692,7 +1692,7 @@ bool IsTreasuryBlock(int nHeight)
     if(nHeight < nStartTreasuryBlock)
         return false;
     else 
-        if( (nHeight-nStartTreasuryBlock) % Params().TreasuryBlockStep() == 0)
+        if( (nHeight-nStartTreasuryBlock) % Params().TreasuryBlockStep() == 0 || nHeight == nStartTreasuryBlock)
             return true;
         else
             return false;

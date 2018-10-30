@@ -245,7 +245,7 @@ CAmount GetBlockValue(int nHeight);
 
 //Treasury blocks start from 2000 (1000 blocks after last POW) and then each 5000 (~ once a week)
 //For Testnet we'll set it lower 200 blocks (~ 6-7 hours)
-static const int nStartTreasuryBlock = 2000;
+static const int nStartTreasuryBlock = 13000;
 //static const int nTreasuryBlockStep  = 5000;//TreasuryBlockFreq(); 
 //Defined  TreasuryBlockStep in chainparams instead only needed to be declared once
 
