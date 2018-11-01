@@ -1689,7 +1689,6 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 
 bool IsTreasuryBlock(int nHeight)
 {
-    nHeight = nHeight - 1
     if(nHeight < nStartTreasuryBlock)
         return false;
     else 
