@@ -1631,7 +1631,7 @@ int64_t GetBlockValue(int nHeight)
 	int64_t nSubsidy;
 	
 
-    if( IsTreasuryBlock(nHeight)-1 ) 
+    if( IsTreasuryBlock(nHeight) ) 
     {
         LogPrintf("GetBlockValue(): this is a treasury block\n");
         nSubsidy = GetTreasuryAward(nHeight);
@@ -1689,6 +1689,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 
 bool IsTreasuryBlock(int nHeight)
 {
+    nHeight = nHeight - 1
     if(nHeight < nStartTreasuryBlock)
         return false;
     else 

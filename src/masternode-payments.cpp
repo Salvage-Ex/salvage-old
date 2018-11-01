@@ -308,7 +308,8 @@ void FillBlockPayee(CMutableTransaction& txNew, int64_t nFees, bool fProofOfStak
     if (IsSporkActive(SPORK_13_ENABLE_SUPERBLOCKS) && budget.IsBudgetPaymentBlock(pindexPrev->nHeight + 1)) {
         budget.FillBlockPayee(txNew, nFees, fProofOfStake);
     } else {
-        if( IsTreasuryBlock(pindexPrev->nHeight) ) 
+
+        if( IsTreasuryBlock(pindexPrev->nHeight + 1) ) 
         {
             //LogPrintf("FillBlockPayee(): It's time for treasury payment! Block %d\n",pindexPrev->nHeight + 1);
              budget.FillTreasuryBlockPayee(txNew, nFees, fProofOfStake);
