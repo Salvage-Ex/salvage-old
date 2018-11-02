@@ -995,8 +995,11 @@ bool CheckTransaction(const CTransaction& tx, CValidationState& state)
             return state.DoS(100, error("CheckTransaction(): txout empty for user transaction"));
 
         if (txout.nValue < 0)
+        {
+            LogPrintf("debug: txout.nValue = %lli\n",txout.nValue);
             return state.DoS(100, error("CheckTransaction() : txout.nValue negative"),
                 REJECT_INVALID, "bad-txns-vout-negative");
+        }
         if (txout.nValue > Params().MaxMoneyOut())
             return state.DoS(100, error("CheckTransaction() : txout.nValue too high"),
                 REJECT_INVALID, "bad-txns-vout-toolarge");
@@ -1625,66 +1628,59 @@ double ConvertBitsToDouble(unsigned int nBits)
 
 int64_t GetBlockValue(int nHeight)
 {
- 
-	if (nHeight == 1) return 6570000 * COIN; //pre-mine mostly will got to swaps
+	if (nHeight == 1) 
+		return 6570000 * COIN; //pre-mine mostly will got to swaps
 	
 	int64_t nSubsidy;
 	
+    if( nHeight > 1 && nHeight <= 131400 ) {
+        nSubsidy = 2.5 * COIN;
+    } else if( nHeight > 131400 && nHeight <= 262800 ) {
+        nSubsidy = 5 * COIN;
+    } else if( nHeight > 262800 && nHeight <= 394200 ) {
+        nSubsidy = 10 * COIN;
+    } else if( nHeight > 394200 && nHeight <= 525600 ) {
+        nSubsidy = 15 * COIN;
+    } else if( nHeight > 525600 && nHeight <= 657000 ) {
+        nSubsidy = 20 * COIN;
+    } else if( nHeight > 657000 && nHeight <= 788400 ) {
+        nSubsidy = 25 * COIN;
+    } else if( nHeight > 788400 && nHeight <= 919800 ) {
+        nSubsidy = 30 * COIN;
+    } else if( nHeight > 919800 && nHeight <= 1051200 ) {
+        nSubsidy = 35 * COIN;
+    } else if( nHeight > 1051200 && nHeight <= 1182600 ) {
+        nSubsidy = 30 * COIN;
+    } else if( nHeight > 1182600 && nHeight <= 1314000 ) {
+        nSubsidy = 25 * COIN;
+    } else if( nHeight > 1314000 && nHeight <= 1445400 ) {
+        nSubsidy = 20 * COIN;
+    } else if( nHeight > 1445400 && nHeight <= 1576800 ) {
+        nSubsidy = 15 * COIN;
+    } else if( nHeight > 1576800 && nHeight <= 1708200 ) {
+        nSubsidy = 10 * COIN;
+    } else if( nHeight > 1708200 && nHeight <= 1839600 ) {
+        nSubsidy = 5 * COIN;
+    } else if( nHeight > 1839600 && nHeight <= 1971000 ) {
+        nSubsidy = 2.5 * COIN;
+    } else {
+        nSubsidy = 1 * COIN;
+    }
 
     if( IsTreasuryBlock(nHeight) ) 
     {
         LogPrintf("GetBlockValue(): this is a treasury block\n");
-        nSubsidy = GetTreasuryAward(nHeight);
-    } else {
 
-    	if( nHeight > 1 && nHeight <= 131400 ) {
-    	        nSubsidy = 2.5 * COIN;
-    	} else if( nHeight > 131400 && nHeight <= 262800 ) {
-    	        nSubsidy = 5 * COIN;
-    	} else if( nHeight > 262800 && nHeight <= 394200 ) {
-    	        nSubsidy = 10 * COIN;
-    	} else if( nHeight > 394200 && nHeight <= 525600 ) {
-    	        nSubsidy = 15 * COIN;
-    	} else if( nHeight > 525600 && nHeight <= 657000 ) {
-    	        nSubsidy = 20 * COIN;
-    	} else if( nHeight > 657000 && nHeight <= 788400 ) {
-    	        nSubsidy = 25 * COIN;
-    	} else if( nHeight > 788400 && nHeight <= 919800 ) {
-    	        nSubsidy = 30 * COIN;
-    	} else if( nHeight > 919800 && nHeight <= 1051200 ) {
-    	        nSubsidy = 35 * COIN;
-    	} else if( nHeight > 1051200 && nHeight <= 1182600 ) {
-    	        nSubsidy = 30 * COIN;
-    	} else if( nHeight > 1182600 && nHeight <= 1314000 ) {
-    	        nSubsidy = 25 * COIN;
-    	} else if( nHeight > 1314000 && nHeight <= 1445400 ) {
-    	        nSubsidy = 20 * COIN;
-    	} else if( nHeight > 1445400 && nHeight <= 1576800 ) {
-    	        nSubsidy = 15 * COIN;
-    	} else if( nHeight > 1576800 && nHeight <= 1708200 ) {
-    	        nSubsidy = 10 * COIN;
-        } else if( nHeight > 1708200 && nHeight <= 1839600 ) {
-                nSubsidy = 5 * COIN;
-        } else if( nHeight > 1839600 && nHeight <= 1971000 ) {
-                nSubsidy = 2.5 * COIN;
-    	} else {
-    		nSubsidy = 1 * COIN;
-    	}
+		// Add Treasury Block Value to normal Block Value
+        nSubsidy += GetTreasuryAward(nHeight);
     }
-	
-    return nSubsidy;
 
+    return nSubsidy;
 }
 
-int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
+CAmount GetMasternodePayment(int nHeight, CAmount blockValue, int nMasternodeCount)
 {
-
-
-	int64_t ret = 0;
-	
-        ret = blockValue * 0.75;
-	
-	return ret;
+	return (blockValue * 0.75);
 }
 
 bool IsTreasuryBlock(int nHeight)
@@ -1700,12 +1696,7 @@ bool IsTreasuryBlock(int nHeight)
 
 CAmount GetTreasuryAward(int nHeight)
 {
-    if(IsTreasuryBlock(nHeight)) 
-    {
-            return 30 * COIN;  // 30 for each block
-    } 
-    
-    return 0;
+    return 30 * COIN;  // 30 for each block
 }
 
 bool IsInitialBlockDownload()

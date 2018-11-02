@@ -15,6 +15,7 @@
 #include "masternodeman.h"
 #include "Darksend.h"
 #include "util.h"
+#include "utilmoneystr.h"
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -518,11 +519,17 @@ void CBudgetManager::FillTreasuryBlockPayee(CMutableTransaction& txNew, CAmount 
     if (!pindexPrev) return;
 
     CScript payee;
- 
-    CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
-    payee = Params().GetTreasuryRewardScriptAtHeight(pindexPrev->nHeight);
-    CAmount treasurePayment = blockValue - 10 * COIN;
 
+    CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1);
+
+	LogPrintf("FillTreasuryBlockPayee: blockValue=%lli\n", FormatMoney(blockValue,true) );
+	
+    payee = Params().GetTreasuryRewardScriptAtHeight(pindexPrev->nHeight);
+    
+	CAmount treasurePayment = blockValue - GetTreasuryAward(pindexPrev->nHeight + 1);
+
+	LogPrintf("FillTreasuryBlockPayee: treasurePayment=%s\n", FormatMoney(treasurePayment,true) );
+	
     if (fProofOfStake) {
         /**For Proof Of Stake vout[0] must be null
          * Stake reward can be split into many different outputs, so we must
@@ -542,7 +549,14 @@ void CBudgetManager::FillTreasuryBlockPayee(CMutableTransaction& txNew, CAmount 
             //subtract treasury payment from the stake reward
             txNew.vout[i - 1].nValue -= treasurePayment;
         }
-    } else {
+		
+		LogPrintf("FillTreasuryBlockPayee: Number of vout=%u\n", txNew.vout.size() );
+			
+		BOOST_FOREACH (const CTxOut o, txNew.vout) {
+			LogPrintf("FillTreasuryBlockPayee:    vout.nValue=%s\n", FormatMoney(o.nValue,true) );
+		}
+
+	} else {
         txNew.vout.resize(2);
         txNew.vout[1].scriptPubKey = payee;
         txNew.vout[1].nValue = treasurePayment;
