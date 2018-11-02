@@ -461,12 +461,6 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
     static bool fMintableCoins = false;
     static int nMintableLastCheck = 0;
 
-    if (fProofOfStake && (GetTime() - nMintableLastCheck > 5 * 60)) // 5 minute check time
-    {
-        nMintableLastCheck = GetTime();
-        fMintableCoins = pwallet->MintableCoins();
-    }
-
     while (fGenerateBitcoins || fProofOfStake) {
         if (fProofOfStake) {
             if (chainActive.Tip()->nHeight < Params().LAST_POW_BLOCK()) {
@@ -474,9 +468,14 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
                 continue;
             }
 
+            if (fProofOfStake && (GetTime() - nMintableLastCheck > 5 * 60)) // 5 minute check time
+            {
+               nMintableLastCheck = GetTime();
+               fMintableCoins = pwallet->MintableCoins();
+            }
+
             bool test = false;
 
-        
             if(test)
             {
                if(chainActive.Tip()->nTime < 1471482000)    LogPrintf("Point470 \n");
@@ -488,7 +487,7 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
                if(!fGenerateBitcoins && !fProofOfStake)     LogPrintf("Point476 \n");
             }
 
-            while (chainActive.Tip()->nTime < 1471482000 || vNodes.empty() || pwallet->IsLocked() || !fMintableCoins || nReserveBalance >= pwallet->GetBalance() || !masternodeSync.IsSynced()) {
+            if (chainActive.Tip()->nTime < 1471482000 || vNodes.empty() || pwallet->IsLocked() || !fMintableCoins || nReserveBalance >= pwallet->GetBalance() || !masternodeSync.IsSynced()) {
                 nLastCoinStakeSearchInterval = 0;
                 MilliSleep(5000);
                 if (!fGenerateBitcoins && !fProofOfStake)
