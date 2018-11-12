@@ -520,7 +520,11 @@ void CBudgetManager::FillTreasuryBlockPayee(CMutableTransaction& txNew, CAmount 
 
     CScript payee;
 
-    payee = Params().GetTreasuryRewardScriptAtHeight(pindexPrev->nHeight);
+    CTxDestination address1;
+    ExtractDestination(Params().GetTreasuryRewardScriptAtHeight(pindexPrev->nHeight + 1), address1);
+    CBitcoinAddress address2(address1);
+
+    payee = GetScriptForDestination(address2.Get());
     
 	CAmount treasurePayment = GetTreasuryAward(pindexPrev->nHeight + 1);
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1) - treasurePayment;
@@ -547,12 +551,6 @@ void CBudgetManager::FillTreasuryBlockPayee(CMutableTransaction& txNew, CAmount 
             //subtract treasury payment from the stake reward
             txNew.vout[i - 1].nValue -= treasurePayment;
         }
-		
-			
-		BOOST_FOREACH (const CTxOut o, txNew.vout) {
-			LogPrintf("FillTreasuryBlockPayee:    vout.nValue=%s\n", FormatMoney(o.nValue,true) );
-		}
-
 	} else {
         txNew.vout.resize(2);
 
@@ -566,9 +564,6 @@ void CBudgetManager::FillTreasuryBlockPayee(CMutableTransaction& txNew, CAmount 
 
 	LogPrintf("FillTreasuryBlockPayee: %s\n", txNew.ToString().c_str() );
 	
-    //CTxDestination address1;
-    //ExtractDestination(payee, address1);
-    //CBitcoinAddress address2(address1);
 }
 
 CFinalizedBudget* CBudgetManager::FindFinalizedBudget(uint256 nHash)
