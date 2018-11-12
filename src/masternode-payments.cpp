@@ -351,10 +351,10 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight +1 );
     CAmount masternodePayment = GetMasternodePayment(pindexPrev->nHeight +1, blockValue);
 	
-	//TEMPORARY FIX
-	if(pindexPrev->nHeight +1 > 151200 && pindexPrev->nHeight +1 <= 152500) {
-		masternodePayment = GetMasternodePayment(152501, blockValue);
-	}
+	// //TEMPORARY FIX
+	// if(pindexPrev->nHeight +1 > 151200 && pindexPrev->nHeight +1 <= 152500) {
+	// 	masternodePayment = GetMasternodePayment(152501, blockValue);
+	// }
 
     if (hasPayment) {
         if (fProofOfStake) {
@@ -370,12 +370,14 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
             //subtract mn payment from the stake reward
             txNew.vout[i - 1].nValue -= masternodePayment;
+
 			LogPrintf("fProofOfStake: masternode to pay value %u\n", masternodePayment);
         } else {
             txNew.vout.resize(2);
             txNew.vout[1].scriptPubKey = payee;
             txNew.vout[1].nValue = masternodePayment;
 			LogPrintf("CreateNewBlock: masternode to pay value %u\n", masternodePayment);
+
             txNew.vout[0].nValue = blockValue - masternodePayment;
 			LogPrintf("CreateNewBlock: blockvalue to pay value %u\n", blockValue);
         }

@@ -520,14 +520,12 @@ void CBudgetManager::FillTreasuryBlockPayee(CMutableTransaction& txNew, CAmount 
 
     CScript payee;
 
-    CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1);
-
-	LogPrintf("FillTreasuryBlockPayee: blockValue=%lli\n", FormatMoney(blockValue,true) );
-	
     payee = Params().GetTreasuryRewardScriptAtHeight(pindexPrev->nHeight);
     
-	CAmount treasurePayment = blockValue - GetTreasuryAward(pindexPrev->nHeight + 1);
+	CAmount treasurePayment = GetTreasuryAward(pindexPrev->nHeight + 1);
+    CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1) - treasurePayment;
 
+	LogPrintf("FillTreasuryBlockPayee: blockValue=%lli\n", FormatMoney(blockValue,true) );
 	LogPrintf("FillTreasuryBlockPayee: treasurePayment=%s\n", FormatMoney(treasurePayment,true) );
 	
     if (fProofOfStake) {
@@ -550,7 +548,6 @@ void CBudgetManager::FillTreasuryBlockPayee(CMutableTransaction& txNew, CAmount 
             txNew.vout[i - 1].nValue -= treasurePayment;
         }
 		
-		LogPrintf("FillTreasuryBlockPayee: Number of vout=%u\n", txNew.vout.size() );
 			
 		BOOST_FOREACH (const CTxOut o, txNew.vout) {
 			LogPrintf("FillTreasuryBlockPayee:    vout.nValue=%s\n", FormatMoney(o.nValue,true) );
@@ -558,14 +555,20 @@ void CBudgetManager::FillTreasuryBlockPayee(CMutableTransaction& txNew, CAmount 
 
 	} else {
         txNew.vout.resize(2);
+
+		// change the value for the miner
+        txNew.vout[0].nValue = blockValue;
+
+		// add new TX for the treasury
         txNew.vout[1].scriptPubKey = payee;
         txNew.vout[1].nValue = treasurePayment;
-        txNew.vout[0].nValue = blockValue - treasurePayment;
     }
 
-    CTxDestination address1;
-    ExtractDestination(payee, address1);
-    CBitcoinAddress address2(address1);
+	LogPrintf("FillTreasuryBlockPayee: %s\n", txNew.ToString().c_str() );
+	
+    //CTxDestination address1;
+    //ExtractDestination(payee, address1);
+    //CBitcoinAddress address2(address1);
 }
 
 CFinalizedBudget* CBudgetManager::FindFinalizedBudget(uint256 nHash)
